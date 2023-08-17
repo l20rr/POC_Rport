@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportApp", "ReportApp\ReportApp.csproj", "{2E04664D-B04D-4B2D-82E1-887567EE2B39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportApp.Shared", "ReportApp.Shared\ReportApp.Shared.csproj", "{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportApp.API", "ReportApp.API\ReportApp.API.csproj", "{C7F760FE-9B42-4113-A6C4-F76F7E13B3A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportApp.Shared", "Shared\ReportApp.Shared.csproj", "{D0F0AD11-B657-41E7-9E9A-3280503073F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +27,6 @@ Global
 		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Debug|x86.Build.0 = Debug|Any CPU
 		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|arm64.ActiveCfg = Release|Any CPU
-		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|arm64.Build.0 = Release|Any CPU
-		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|x86.ActiveCfg = Release|Any CPU
-		{2E04664D-B04D-4B2D-82E1-887567EE2B39}.Release|x86.Build.0 = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|arm64.Build.0 = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Debug|x86.Build.0 = Debug|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|arm64.ActiveCfg = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|arm64.Build.0 = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|x86.ActiveCfg = Release|Any CPU
-		{519433CE-3AC7-4A35-8FE1-FE6BFFCB458E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
