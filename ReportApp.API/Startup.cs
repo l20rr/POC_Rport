@@ -23,7 +23,11 @@ namespace ReportApp.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddHttpClient();
 
-           
+            services.AddScoped<IUserModel, UserModel>();
+
+            services.AddScoped<IBugModel, BugModel>();
+
+            services.AddScoped<IFeedbackModel, FeedbackModel>();
 
 
 
