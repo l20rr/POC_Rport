@@ -17,37 +17,44 @@ namespace ReportApp.API.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //database relation
+
+            //User with feedback 1 - m
             modelBuilder.Entity<User>()
               .HasMany(u => u.Feedback)
               .WithOne(f => f.User)
               .HasForeignKey(f => f.UserId);
 
+            //User with Bug 1 - m
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BugReport)
                 .WithOne(b => b.User)
                 .HasForeignKey(b => b.UserId);
-
+            //Bug key
             modelBuilder.Entity<BugReport>()
                 .HasKey(b => b.BugReportId);
-
+            //Feedback key
             modelBuilder.Entity<Feedback>()
                 .HasKey(f => f.FeedbackId);
-
+            //Attachment key
             modelBuilder.Entity<Attachments>()
                 .HasKey(a => a.AttachmentId);
 
+            //Bug with Attachment 1 - 1
             modelBuilder.Entity<BugReport>()
                 .HasOne(b => b.Attachment)
                 .WithOne(a => a.BugReport)
                 .HasForeignKey<Attachments>(a => a.BugReportId)
                 .OnDelete(DeleteBehavior.Restrict); // Evita a exclusão em cascata
-
+            //Feedback with Attachment 1 - 1
             modelBuilder.Entity<Feedback>()
                 .HasOne(f => f.Attachment)
                 .WithOne(a => a.Feedback)
                 .HasForeignKey<Attachments>(a => a.FeedbackId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            //inicail data
             modelBuilder.Entity<User>().HasData(new User
             {
                 UserId = 1,

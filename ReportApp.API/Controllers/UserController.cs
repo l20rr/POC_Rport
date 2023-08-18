@@ -44,7 +44,7 @@ namespace ReportApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddWallet([FromBody] User user)
+        public async Task<IActionResult> AddUser([FromBody] User user)
         {
             try
             {

@@ -28,7 +28,7 @@ namespace ReportApp.API
             services.AddScoped<IBugModel, BugModel>();
 
             services.AddScoped<IFeedbackModel, FeedbackModel>();
-
+            services.AddScoped<IAttachment, AttachmentModel>();
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
