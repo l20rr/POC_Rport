@@ -4,11 +4,17 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>10d52392-0289-4cca-a2a5-7f54239ff3c5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.9" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
