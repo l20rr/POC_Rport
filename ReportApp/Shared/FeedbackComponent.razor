@@ -1,29 +1,27 @@
-﻿
-
-  <div class="sidebar" >
-    <button class="btn btn-light btnfeed "  @onclick="showfeed">
-            Feedback
-     </button>
+﻿<div class="sidebar">
+    <button class="btn btn-light btnfeed " @onclick="showmenu">
+        Feedback
+    </button>
 
 
-    @if(showmenu == true)
+    @if (show == true)
     {
         <div class="menu">
-            <div class="imenu" >
+            <div class="imenu" @onclick="showbugpart">
                 <span class="oi oi-bug" />
                 <div>
                     <h5>General feedback</h5>
                     <small>Give general feedback of this page</small>
                 </div>
             </div>
-            <div class="imenu">
+            <div class="imenu" @onclick="showfeedpart">
                 <span class="oi oi-document" />
                 <div>
                     <h5>Report a bug</h5>
                     <small>Let us know what's broken</small>
                 </div>
             </div>
-            <div class="imenu">
+            <div class="imenu" @onclick="showcontactpart">
                 <span class="oi oi-person" />
                 <div>
                     <h5>Contact us</h5>
@@ -34,12 +32,30 @@
         </div>
     }
 
- </div>
+    @if (showbug == true)
+    {
+        <div class="menu">
+            <h1>bug</h1>
+        </div>
+    }
+
+    @if (showfeed == true)
+    {
+        <div class="menu">
+            <h1>feed</h1>
+
+        </div>
+    }
 
 
+    @if (showcontact == true)
+    {
+        <div class="menu">
+            <h1>contact</h1>
+        </div>
+    }
 
-
-
+</div>
 
  <style>
      .sidebar{
@@ -52,10 +68,8 @@
         background-image: none;
         height: 220px;
         margin-top: 20vw;
-     
      }
     .btnfeed{
-       
         transform: rotate(90deg);
         border: 2px solid black;
     }
@@ -77,25 +91,55 @@
         width:95%;
         margin-top: 15px;
         cursor:pointer;
-   
-     
     }
 
     .imenu > .oi {
-   
        margin:15px;
        font-size: 25px;
     }
  </style>
 
 
-@code{
-    private bool showmenu = false;
 
-    private void showfeed()
+
+
+    @code{
+    private bool show = false;
+    private bool showbug = false;
+    private bool showfeed = false;
+    private bool showcontact= false;
+
+
+    private void showmenu()
     {
-     
-        showmenu = !showmenu;
-       
+
+        show = !show;
+        showbug = false;
+        showfeed = false;
+        showcontact = false;
+    }
+
+    private void showbugpart()
+    {
+        showbug = true;
+        show = false;
+
+        showfeed = false;
+        showcontact = false;
+    }
+
+    private void showfeedpart()
+    {
+        showfeed = true;
+        show = false;
+        showcontact = false;
+        showbug = false;
+    }
+    private void showcontactpart()
+    {
+        showcontact = true;
+        show = false;
+        showfeed = false;
+        showbug = false;
     }
 }
