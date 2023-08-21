@@ -1,35 +1,38 @@
 ﻿
 
-  <div class="sidebar" style="display:flex; justify-content:flex-start;align-items:center;position:fixed; width: 90vw; background-color:transparent; background-image:none; height: auto; margin-top:25vw;">
-    <button class="btn btn-light btnfeed" style=" transform: rotate(90deg); border:2px solid black; ">
+  <div class="sidebar" >
+    <button class="btn btn-light btnfeed "  @onclick="showfeed">
             Feedback
      </button>
 
 
-    <div class="menu">
-        <div class="imenu">
-            <span class="oi oi-bug" /> 
-           <div>
-                <h5>General feedback</h5>
-                <small>Give general feedback of this page</small>
-           </div>
-        </div>
-        <div class="imenu">
-            <span class="oi oi-document" />
-            <div>
-                <h5>Report a bug</h5>
-                <small>Let us know what's broken</small>
+    @if(showmenu == true)
+    {
+        <div class="menu">
+            <div class="imenu" >
+                <span class="oi oi-bug" />
+                <div>
+                    <h5>General feedback</h5>
+                    <small>Give general feedback of this page</small>
+                </div>
             </div>
-        </div>
-        <div class="imenu">
-             <span class="oi oi-person" />
-            <div>
-                <h5>Contact us</h5>
-                <small>Get in touch with us</small>
+            <div class="imenu">
+                <span class="oi oi-document" />
+                <div>
+                    <h5>Report a bug</h5>
+                    <small>Let us know what's broken</small>
+                </div>
             </div>
+            <div class="imenu">
+                <span class="oi oi-person" />
+                <div>
+                    <h5>Contact us</h5>
+                    <small>Get in touch with us</small>
+                </div>
+            </div>
+
         </div>
-       
-    </div>
+    }
 
  </div>
 
@@ -39,9 +42,22 @@
 
 
  <style>
-    .btnfeed:hover{
-        background-color:black;
-        color: white;
+     .sidebar{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: fixed;
+        width: 450px;
+        background-color: transparent;
+        background-image: none;
+        height: 220px;
+        margin-top: 20vw;
+     
+     }
+    .btnfeed{
+       
+        transform: rotate(90deg);
+        border: 2px solid black;
     }
 
     .menu{
@@ -60,6 +76,7 @@
         border-bottom: 1px solid black;
         width:95%;
         margin-top: 15px;
+        cursor:pointer;
    
      
     }
@@ -72,4 +89,13 @@
  </style>
 
 
-   
+@code{
+    private bool showmenu = false;
+
+    private void showfeed()
+    {
+     
+        showmenu = !showmenu;
+       
+    }
+}
