@@ -21,7 +21,7 @@ namespace ReportApp.Shared
 		[EmailAddress]
 		public string Email { get; set; }
 
-        public List<Feedback>? Feedback { get; set; }
-        public List<BugReport>? BugReport { get; set; }
+        public List<Feedback> ? Feedback { get; set; }
+        public List<BugReport> ? BugReport { get; set; }
     }
 }

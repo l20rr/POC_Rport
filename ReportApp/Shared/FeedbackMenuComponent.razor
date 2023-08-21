@@ -1,7 +1,7 @@
 ﻿
 
   <div class="sidebar" >
-    <button class="btn btn-light btnfeed "  @onclick="showfeed">
+    <button class="btn btn-light btnfeed " @onclick="showfeedbackmenu">
             Feedback
      </button>
 
@@ -10,18 +10,22 @@
     {
         <div class="menu">
             <div class="imenu" >
-                <span class="oi oi-bug" />
-                <div>
-                    <h5>General feedback</h5>
-                    <small>Give general feedback of this page</small>
-                </div>
+                <AddFeedbackReport>
+                    <span class="oi oi-bug" />
+                    <div>
+                        <h5>General feedback</h5>
+                        <small>Give general feedback of this page</small>
+                    </div>
+                </AddFeedbackReport>
             </div>
             <div class="imenu">
-                <span class="oi oi-document" />
-                <div>
-                    <h5>Report a bug</h5>
-                    <small>Let us know what's broken</small>
-                </div>
+                <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose">
+                    <span class="oi oi-document" />
+                    <div>
+                        <h5>Report a bug</h5>
+                        <small>Let us know what's broken</small>
+                    </div>
+                </AddBugReport>
             </div>
             <div class="imenu">
                 <span class="oi oi-person" />
@@ -92,7 +96,7 @@
 @code{
     private bool showmenu = false;
 
-    private void showfeed()
+    private void showfeedbackmenu()
     {
      
         showmenu = !showmenu;
