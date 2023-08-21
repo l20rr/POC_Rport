@@ -1,13 +1,41 @@
 ﻿
 
-  <div class="sidebar" style="display:flex; justify-content:center;align-items:center;position:fixed; width: 55px; background-color:transparent; background-image:none; height: auto; margin-top:25vw;">
-<button class="btn btn-light btnfeed" style=" transform: rotate(90deg); border:2px solid black; ">
-        Feedback
- </button>
+  <div class="sidebar" style="display:flex; justify-content:flex-start;align-items:center;position:fixed; width: 90vw; background-color:transparent; background-image:none; height: auto; margin-top:25vw;">
+    <button class="btn btn-light btnfeed" style=" transform: rotate(90deg); border:2px solid black; ">
+            Feedback
+     </button>
+
+
+    <div class="menu">
+        <div class="imenu">
+            <span class="oi oi-bug" /> 
+           <div>
+                <h5>General feedback</h5>
+                <small>Give general feedback of this page</small>
+           </div>
+        </div>
+        <div class="imenu">
+            <span class="oi oi-document" />
+            <div>
+                <h5>Report a bug</h5>
+                <small>Let us know what's broken</small>
+            </div>
+        </div>
+        <div class="imenu">
+             <span class="oi oi-person" />
+            <div>
+                <h5>Contact us</h5>
+                <small>Get in touch with us</small>
+            </div>
+        </div>
+       
+    </div>
 
  </div>
 
- 
+
+
+
 
 
  <style>
@@ -15,4 +43,33 @@
         background-color:black;
         color: white;
     }
+
+    .menu{
+        display:flex;
+        flex-direction:column;
+        height: 220px;
+        width:310px;
+        border : 1px solid black;
+        border-radius:10px;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .imenu{
+        display:flex;
+        border-bottom: 1px solid black;
+        width:95%;
+        margin-top: 15px;
+   
+     
+    }
+
+    .imenu > .oi {
+   
+       margin:15px;
+       font-size: 25px;
+    }
  </style>
+
+
+   
