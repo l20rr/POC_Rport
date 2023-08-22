@@ -22,6 +22,19 @@
 							<ValidationMessage For="@(() => Feedback.User.UserName)" />
 						</div>
 
+						<div class="form-group">
+							<label for="email">Email: </label>
+							<InputText id="email" class="form-control" @bind-Value="@Feedback.User.Email" placeholder="Enter email"></InputText>
+							<ValidationMessage For="@(() => Feedback.User.Email)" />
+						</div>
+						<div class="form-group">
+							<label for="Comments">Comments: </label>
+							<InputText id="Comments" class="form-control" @bind-Value="@Feedback.Comments" placeholder="Comments"></InputText>
+							<ValidationMessage For="@(() => Feedback.Comments)" />
+						</div>
+
+
+						<InputFile class="btn btn-primary">file</InputFile>
 						<button type="submit" class="btn btn-primary">Send</button>
 						<a class="btn btn-outline-primary" @onclick="@Close">Close</a>
 					</EditForm>
