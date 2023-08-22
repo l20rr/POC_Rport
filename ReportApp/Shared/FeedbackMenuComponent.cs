@@ -10,11 +10,10 @@ namespace ReportApp.Shared
     {
         public bool show = false;
 
-        public bool showbug = false;
+        public bool BugReportVisible = false;
 
-        public bool showfeed = false;
 
-        public bool showcontact = false;
+
         public IEnumerable<BugReport> BugReports { get; set; }
 
 
@@ -28,7 +27,7 @@ namespace ReportApp.Shared
         [Parameter]
         public EventCallback<bool> OnClickEventCallback { get; set; }
 
-       
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -43,13 +42,16 @@ namespace ReportApp.Shared
         }
 
 
-       
 
         private void ToggleMenu()
         {
             show = !show;
         }
 
+        private void open()
+        {
+            BugReportVisible = true;
+        }
 
     }
 }

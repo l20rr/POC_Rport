@@ -38,7 +38,7 @@ namespace ReportApp.API
                 options.AddPolicy("AllowSpecificOrigins",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:7192")
+                        builder.WithOrigins("https://localhost:7007")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });

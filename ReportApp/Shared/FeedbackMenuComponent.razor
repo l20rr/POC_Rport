@@ -6,28 +6,29 @@
     </button>
 
 
+
     @if (show == true)
     {
         <div class="menu">
             <div class="imenu">
-                <AddFeedbackReport>
+                
                     <span class="oi oi-bug" />
                     <div>
                         <h5>General feedback</h5>
                         <small>Give general feedback of this page</small>
                     </div>
-                </AddFeedbackReport>
+               
             </div>
-            <div class="imenu">
-                <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose">
+            <div class="imenu" @onclick="open">
+                
                     <span class="oi oi-document" />
                     <div>
                         <h5>Report a bug</h5>
                         <small>Let us know what's broken</small>
                     </div>
-                </AddBugReport>
+            
             </div>
-            <div class="imenu" >
+            <div class="imenu">
                 <span class="oi oi-person" />
                 <div>
                     <h5>Contact us</h5>
@@ -37,30 +38,11 @@
 
         </div>
     }
+   
+  
+        <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
 
-    @if (showbug == true)
-    {
-        <div class="menu">
-            <h1>bug</h1>
-        </div>
-    }
-
-    @if (showfeed == true)
-    {
-        <div class="menu">
-            <h1>feed</h1>
-
-        </div>
-    }
-
-
-    @if (showcontact == true)
-    {
-        <div class="menu">
-            <h1>contact</h1>
-        </div>
-    }
-
+  
 </div>
 
 <style>
