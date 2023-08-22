@@ -4,7 +4,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/bugs")]
     [ApiController]
 
     public class BugController : Controller

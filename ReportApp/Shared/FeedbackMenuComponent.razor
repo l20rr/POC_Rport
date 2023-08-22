@@ -1,15 +1,15 @@
-﻿
+﻿@using System.Net.Http
 
-  <div class="sidebar" >
-    <button class="btn btn-light btnfeed " @onclick="showfeedbackmenu">
-            Feedback
-     </button>
+<div class="sidebar">
+    <button class="btn btn-light btnfeed " @onclick="ToggleMenu">
+        Feedback
+    </button>
 
 
     @if (show == true)
     {
         <div class="menu">
-            <div class="imenu" >
+            <div class="imenu">
                 <AddFeedbackReport>
                     <span class="oi oi-bug" />
                     <div>
@@ -27,7 +27,7 @@
                     </div>
                 </AddBugReport>
             </div>
-            <div class="imenu" @onclick="showcontactpart">
+            <div class="imenu" >
                 <span class="oi oi-person" />
                 <div>
                     <h5>Contact us</h5>
@@ -63,8 +63,8 @@
 
 </div>
 
- <style>
-     .sidebar{
+<style>
+    .sidebar {
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -74,79 +74,36 @@
         background-image: none;
         height: 220px;
         margin-top: 20vw;
-     }
-    .btnfeed{
+    }
+
+    .btnfeed {
         transform: rotate(90deg);
         border: 2px solid black;
     }
 
-    .menu{
-        display:flex;
-        flex-direction:column;
+    .menu {
+        display: flex;
+        flex-direction: column;
         height: 220px;
-        width:310px;
-        border : 1px solid black;
-        border-radius:10px;
-        justify-content:center;
-        align-items:center;
+        width: 310px;
+        border: 1px solid black;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
     }
 
-    .imenu{
-        display:flex;
+    .imenu {
+        display: flex;
         border-bottom: 1px solid black;
-        width:95%;
+        width: 95%;
         margin-top: 15px;
-        cursor:pointer;
+        cursor: pointer;
     }
 
-    .imenu > .oi {
-       margin:15px;
-       font-size: 25px;
-    }
- </style>
+        .imenu > .oi {
+            margin: 15px;
+            font-size: 25px;
+        }
+</style>
 
 
-
-
-
-    @code{
-//Ainda irei refatorar mas é para ter uma noção de como está
-    private bool show = false;
-    private bool showbug = false;
-    private bool showfeed = false;
-    private bool showcontact= false;
-
-
-    private void showmenu()
-    {
-
-        show = !show;
-        showbug = false;
-        showfeed = false;
-        showcontact = false;
-    }
-
-    private void showfeed()
-    {
-        showbug = true;
-        show = false;
-
-        showfeed = false;
-        showcontact = false;
-    }
-
-    private void showfeedpart()
-    {
-        showfeed = true;
-        show = false;
-        showcontact = false;
-        showbug = false;
-    }
-    private void showcontactpart()
-    {
-        showcontact = true;
-        show = false;
-        showfeed = false;
-        showbug = false;
-    }
-}

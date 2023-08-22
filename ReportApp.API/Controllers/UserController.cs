@@ -5,7 +5,7 @@ using ReportApp.Shared;
 namespace ReportApp.API.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
 
     public class UserController : Controller

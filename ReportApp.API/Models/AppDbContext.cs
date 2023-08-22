@@ -6,7 +6,10 @@ namespace ReportApp.API.Models
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
@@ -52,7 +55,6 @@ namespace ReportApp.API.Models
                 .WithOne(a => a.Feedback)
                 .HasForeignKey<Attachments>(a => a.FeedbackId)
                 .OnDelete(DeleteBehavior.Restrict);
-
 
             //inicail data
             modelBuilder.Entity<User>().HasData(new User

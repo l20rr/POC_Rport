@@ -31,7 +31,7 @@ namespace ReportApp.API
             services.AddScoped<IAttachment, AttachmentModel>();
 
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddCors(options =>
             {

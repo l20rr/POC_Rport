@@ -8,6 +8,13 @@ namespace ReportApp.Shared
 {
     public partial class FeedbackMenuComponent
     {
+        public bool show = false;
+
+        public bool showbug = false;
+
+        public bool showfeed = false;
+
+        public bool showcontact = false;
         public IEnumerable<BugReport> BugReports { get; set; }
 
 
@@ -21,6 +28,7 @@ namespace ReportApp.Shared
         [Parameter]
         public EventCallback<bool> OnClickEventCallback { get; set; }
 
+       
 
         protected async override Task OnInitializedAsync()
         {
@@ -32,6 +40,14 @@ namespace ReportApp.Shared
         {
             BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
             StateHasChanged();
+        }
+
+
+       
+
+        private void ToggleMenu()
+        {
+            show = !show;
         }
 
 

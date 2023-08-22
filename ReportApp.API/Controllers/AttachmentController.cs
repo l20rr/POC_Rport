@@ -4,7 +4,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/atts")]
     [ApiController]
     public class AttachmentController : Controller
     {
