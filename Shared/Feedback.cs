@@ -33,15 +33,15 @@ namespace ReportApp.Shared
 		/* How did you first learn about our app? */
 
 		[StringLength(150, ErrorMessage = "The answer length can't exceed 150 characters.")]
-		public string Question1 { get; set; }
+		public string ? Question1 { get; set; }
 
 
 		/* On a scale of 1 to 5, rate the interface of the mobile application. */
-		public int Question2 { get; set; }
+		public int ? Question2 { get; set; }
 
 
 		/* Would you recommend this app to your family and friends? */
-		public bool Question3 { get; set; }
+		public bool ? Question3 { get; set; }
 
         public User ? User { get; set; }
 
