@@ -8,10 +8,9 @@ namespace ReportApp.Shared
 {
     public partial class FeedbackMenuComponent
     {
-        public bool show = false;
+        public bool showmenu = false;
 
-        public bool BugReportVisible = false;
-
+        private bool showBugReportComponent = false;
 
 
         public IEnumerable<BugReport> BugReports { get; set; }
@@ -20,6 +19,9 @@ namespace ReportApp.Shared
         [Inject]
         public IBugReportDataService BugReportDataService { get; set; }
 
+
+        [Inject]
+        public IUserDataService UserDataService { get; set; }
 
         protected AddBugReport AddBugReport { get; set; }
 
@@ -38,6 +40,7 @@ namespace ReportApp.Shared
         public async void AddBugReport_OnDialogClose()
         {
             BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
+         
             StateHasChanged();
         }
 
@@ -45,13 +48,27 @@ namespace ReportApp.Shared
 
         private void ToggleMenu()
         {
-            show = !show;
+            showmenu = !showmenu;
         }
 
-        private void open()
+        protected bool isAddBugReportInitialized = false;
+
+        protected async Task QuickAddBug()
         {
-            BugReportVisible = true;
-        }
+           
+            StateHasChanged(); // Atualiza a renderização para esconder o menu
+            await Task.Delay(10); // Aguarda um curto período para a renderização ser atualizada
 
+            showBugReportComponent = true; // Agora é seguro definir isso como true
+            StateHasChanged(); // Atualiza a renderização para mostrar o componente
+
+            // Aguarda até que o componente AddBugReport seja inicializado completamente
+            while (AddBugReport == null)
+            {
+                await Task.Delay(10);
+            }
+
+            AddBugReport.ShowAsync(); // Agora chama o método Show()
+        }
     }
 }

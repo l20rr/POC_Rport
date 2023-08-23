@@ -7,7 +7,7 @@
 
 
 
-    @if (show == true)
+    @if (showmenu == true)
     {
         <div class="menu">
             <div class="imenu">
@@ -19,15 +19,16 @@
                     </div>
                
             </div>
-            <div class="imenu" @onclick="open">
-                
-                    <span class="oi oi-document" />
-                    <div>
-                        <h5>Report a bug</h5>
-                        <small>Let us know what's broken</small>
-                    </div>
-            
+            <div class="imenu" @onclick="QuickAddBug">
+                 
+                <span class="oi oi-document" />
+                <div>
+                    <h5>Report a bug</h5>
+                    <small>Let us know what's broken</small>
+                </div>
+          
             </div>
+            
             <div class="imenu">
                 <span class="oi oi-person" />
                 <div>
@@ -37,10 +38,16 @@
             </div>
 
         </div>
+
+        @if (showBugReportComponent)
+        {
+            <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
+
+        }
+
     }
-   
-  
-        <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
+
+
 
   
 </div>

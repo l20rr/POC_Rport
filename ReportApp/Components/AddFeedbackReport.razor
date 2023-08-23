@@ -11,22 +11,27 @@
 				</div>
 				<div class="modal-body">
 
+					<EditForm Model="@User">
+						<DataAnnotationsValidator />
+						<ValidationSummary />
+						<div class="form-group">
+							<label for="UserName">Name: </label>
+							<InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
+							<ValidationMessage For="@(() => User.UserName)" />
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email: </label>
+							<InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
+							<ValidationMessage For="@(() => User.Email)" />
+						</div>
+					</EditForm>
 					<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">
 
 						<DataAnnotationsValidator />
 						<ValidationSummary />
 
-						<div class="form-group">
-							<label for="UserName">Name: </label>
-							<InputText id="userName" class="form-control" @bind-Value="@Feedback.User.UserName" placeholder="Enter your name"></InputText>
-							<ValidationMessage For="@(() => Feedback.User.UserName)" />
-						</div>
-
-						<div class="form-group">
-							<label for="email">Email: </label>
-							<InputText id="email" class="form-control" @bind-Value="@Feedback.User.Email" placeholder="Enter email"></InputText>
-							<ValidationMessage For="@(() => Feedback.User.Email)" />
-						</div>
+					
 						<div class="form-group">
 							<label for="Comments">Comments: </label>
 							<InputText id="Comments" class="form-control" @bind-Value="@Feedback.Comments" placeholder="Comments"></InputText>

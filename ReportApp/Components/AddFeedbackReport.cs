@@ -12,8 +12,8 @@ namespace ReportApp.Components
 	public partial class AddFeedbackReport
 	{
 
-		public Feedback Feedback { get; set; } = new Feedback { UserId = 1, Timestamp = DateTime.Now, Ranking = 0, Comments = "", AttachmentId = 1 , Question1 = "", Question2 = "", Question3 = "" };
-
+		public Feedback Feedback { get; set; } = new Feedback();
+		private User User { get; set; } = new User();
 
 		[Inject]
 		public IFeedbackDataService FeedbackDataService { get; set; }
@@ -43,7 +43,7 @@ namespace ReportApp.Components
 
 		private void ResetReportForm()
 		{
-			Feedback = new Feedback { UserId = 1, Timestamp = DateTime.Now, Ranking = 0, Comments = "", AttachmentId = 1, Question1 = "", Question2 = "", Question3 = "" };
+			Feedback = new Feedback();
 		}
 
 
@@ -56,7 +56,7 @@ namespace ReportApp.Components
 			StateHasChanged();
 		}
 
-
+		
 	}
 }
 

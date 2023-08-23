@@ -1,6 +1,14 @@
-﻿namespace ReportApp.Services
+﻿using ReportApp.Shared;
+
+namespace ReportApp.Services
 {
-	public class IUserDataService
+	public interface IUserDataService
 	{
-	}
+
+        Task<IEnumerable<User>> GetAllUsers();
+
+        Task<User> GetUserId(int userId);
+        Task<User> AddUser(User user);
+   
+    }
 }
