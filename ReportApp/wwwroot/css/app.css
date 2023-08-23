@@ -101,3 +101,43 @@ a, .btn-link {
     }
 
 
+
+.sidebar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    width: 450px;
+    background-color: transparent;
+    background-image: none;
+    height: 220px;
+    margin-top: 20vh;
+}
+
+.btnfeed {
+    transform: rotate(90deg);
+    border: 2px solid black;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 220px;
+    width: 310px;
+    border: 1px solid black;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.imenu {
+    display: flex;
+    border-bottom: 1px solid black;
+    width: 95%;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.modals{
+    margin:50vh auto;
+}

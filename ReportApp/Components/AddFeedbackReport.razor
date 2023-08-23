@@ -1,22 +1,21 @@
 ﻿@if (ShowReportForm)
 {
-	<div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+	<div class=" modals ">
+		<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="titleLabel">Bug Report</h5>
+					<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
 					<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<div style="display:flex;">
-						<span class="oi oi-star" />
-						<span class="oi oi-star" />
-						<span class="oi oi-star" />
-						<span class="oi oi-star" />
-						<span class="oi oi-star" />
-					</div>
+				<div class="star-container">
+					<span class="oi oi-star"></span>
+					<span class="oi oi-star"></span>
+					<span class="oi oi-star"></span>
+					<span class="oi oi-star"></span>
+					<span class="oi oi-star"></span>
+				</div>
 					<EditForm Model="@User">
 						<DataAnnotationsValidator />
 						<ValidationSummary />
@@ -45,13 +44,43 @@
 						</div>
 
 
-						<InputFile class="btn btn-primary">file</InputFile>
-						<button type="submit" class="btn btn-primary">Send</button>
-						<a class="btn btn-outline-primary" @onclick="@Close">Close</a>
+						<InputFile><p class="btn btn-warning">file</p></InputFile>
+						<button type="submit" class="btn btn-light">Send</button>
+						
 					</EditForm>
 
 				</div>
 			</div>
 		</div>
-	</div>
+
 }
+
+
+<style>
+	.star-container {
+		display: flex;
+		align-items:center;
+		justify-content:center;
+		gap: 10px;
+	}
+
+	.oi-star {
+		font-size: 34px;
+		color: #fbec5d;
+		cursor: pointer;
+	
+		transition: color 0.3s;
+
+	}
+
+		.oi-star:hover {
+			color: gold;
+		}
+
+	.modals {
+		display: flex;
+		margin: 20px;
+		justify-content: flex-start;
+		align-items: center;
+	}
+</style>

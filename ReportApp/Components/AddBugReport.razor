@@ -1,8 +1,9 @@
 ﻿@if (ShowReportForm)
 {
-    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+
+        <div class=" modals ">
+
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="titleLabel">Bug Report</h5>
                     <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
@@ -26,7 +27,7 @@
                         </div>
                     </EditForm>
 
-                     <EditForm Model="@BugReport" OnValidSubmit="@HandleValidSubmit">
+                    <EditForm Model="@BugReport" OnValidSubmit="@HandleValidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
                         <div class="form-group">
@@ -35,13 +36,28 @@
                             <ValidationMessage For="@(() => BugReport.Description)" />
                         </div>
 
-                        <InputFile class="btn btn-primary">file</InputFile>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                        <a class="btn btn-outline-primary" @onclick="@Close">Close</a>
+                        <InputFile class="btn btn-warning">file</InputFile>
+                        <button type="submit" class="btn btn-light">Send</button>
+                      
                     </EditForm>
+
+
 
                 </div>
             </div>
+
         </div>
-    </div>
+
+
 }
+
+<style>
+   
+    .modals{
+        display:flex;
+        margin:20px;
+        justify-content: flex-start;
+        align-items:center;
+
+    }
+</style>

@@ -32,7 +32,7 @@ namespace ReportApp.Shared
         [Parameter]
         public EventCallback<bool> OnClickEventCallback { get; set; }
 
-
+      
 
         protected async override Task OnInitializedAsync()
         {
@@ -63,26 +63,28 @@ namespace ReportApp.Shared
 
         protected bool isAddBugReportInitialized = false;
 
-        protected async Task QuickAddBug()
+	
+	protected async Task QuickAddBug()
         {
-           
+          
             StateHasChanged();
-            await Task.Delay(10); 
+            await Task.Delay(5); 
             showBugReportComponent = true;
             StateHasChanged();
             while (AddBugReport == null)
             {
-                await Task.Delay(10);
+                await Task.Delay(5);
             }
 
-            AddBugReport.ShowAsync(); 
+            AddBugReport.ShowAsync();
+       
         }
 
         protected async Task QuickAddFeed()
         {
-
+          
             StateHasChanged(); 
-            await Task.Delay(10); 
+            await Task.Delay(5); 
 
             showFeedReportComponent = true;
             StateHasChanged(); 
@@ -90,10 +92,13 @@ namespace ReportApp.Shared
             
             while (AddFeedbackReport == null)
             {
-                await Task.Delay(10);
+                await Task.Delay(5);
             }
 
-            AddFeedbackReport.Show(); 
-        }
+            AddFeedbackReport.Show();
+         
+         }
+
+        
     }
 }
