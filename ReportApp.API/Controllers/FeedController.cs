@@ -4,7 +4,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Controllers
 {
-    [Route("api/feeds")]
+    [Route("api/feedback")]
     [ApiController]
     public class FeedController : Controller
     {

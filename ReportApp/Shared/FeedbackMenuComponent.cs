@@ -12,19 +12,22 @@ namespace ReportApp.Shared
 
         private bool showBugReportComponent = false;
 
+        private bool showFeedReportComponent = false;
 
         public IEnumerable<BugReport> BugReports { get; set; }
 
+        public IEnumerable<Feedback> Feedbacks { get; set; }    
 
         [Inject]
         public IBugReportDataService BugReportDataService { get; set; }
-
+        [Inject]
+        public IFeedbackDataService FeedbackDataService { get; set; }
 
         [Inject]
         public IUserDataService UserDataService { get; set; }
 
         protected AddBugReport AddBugReport { get; set; }
-
+        protected AddFeedbackReport AddFeedbackReport { get; set; }
 
         [Parameter]
         public EventCallback<bool> OnClickEventCallback { get; set; }
@@ -34,6 +37,7 @@ namespace ReportApp.Shared
         protected async override Task OnInitializedAsync()
         {
             BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
+            Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
         }
 
 
@@ -44,6 +48,12 @@ namespace ReportApp.Shared
             StateHasChanged();
         }
 
+        public async void AddFeedReport_OnDialogClose()
+        {
+            Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
+
+            StateHasChanged();
+        }
 
 
         private void ToggleMenu()
@@ -56,19 +66,34 @@ namespace ReportApp.Shared
         protected async Task QuickAddBug()
         {
            
-            StateHasChanged(); // Atualiza a renderização para esconder o menu
-            await Task.Delay(10); // Aguarda um curto período para a renderização ser atualizada
-
-            showBugReportComponent = true; // Agora é seguro definir isso como true
-            StateHasChanged(); // Atualiza a renderização para mostrar o componente
-
-            // Aguarda até que o componente AddBugReport seja inicializado completamente
+            StateHasChanged();
+            await Task.Delay(10); 
+            showBugReportComponent = true;
+            StateHasChanged();
             while (AddBugReport == null)
             {
                 await Task.Delay(10);
             }
 
-            AddBugReport.ShowAsync(); // Agora chama o método Show()
+            AddBugReport.ShowAsync(); 
+        }
+
+        protected async Task QuickAddFeed()
+        {
+
+            StateHasChanged(); 
+            await Task.Delay(10); 
+
+            showFeedReportComponent = true;
+            StateHasChanged(); 
+
+            
+            while (AddFeedbackReport == null)
+            {
+                await Task.Delay(10);
+            }
+
+            AddFeedbackReport.Show(); 
         }
     }
 }

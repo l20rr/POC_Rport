@@ -10,7 +10,7 @@
     @if (showmenu == true)
     {
         <div class="menu">
-            <div class="imenu">
+            <div class="imenu" @onclick="QuickAddFeed">
                 
                     <span class="oi oi-bug" />
                     <div>
@@ -45,6 +45,12 @@
 
         }
 
+
+        @if (showFeedReportComponent)
+        {
+            <AddFeedbackReport @ref="AddFeedbackReport" CloseEventCallback="@AddFeedReport_OnDialogClose" />
+
+        }
     }
 
 
