@@ -7,16 +7,19 @@
 					<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
+			</div>
 				<div class="modal-body">
-				<div class="star-container">
-					<span class="oi oi-star"></span>
-					<span class="oi oi-star"></span>
-					<span class="oi oi-star"></span>
-					<span class="oi oi-star"></span>
-					<span class="oi oi-star"></span>
-				</div>
-					<EditForm Model="@User">
+				<EditForm Model="@Feedback">
+					<div class="star-container">
+						<span class="oi oi-star ativo" data-avaliacao="1" @onclick="() => UpdateRating(1)" />
+						<span class="oi oi-star" data-avaliacao="2" @onclick="() => UpdateRating(2)" />
+						<span class="oi oi-star" data-avaliacao="3" @onclick="() => UpdateRating(3)" />
+						<span class="oi oi-star" data-avaliacao="4" @onclick="() => UpdateRating(4)" />
+						<span class="oi oi-star" data-avaliacao="5" @onclick="() => UpdateRating(5)" />
+					</div>
+				</EditForm>
+
+				<EditForm Model="@User">
 						<DataAnnotationsValidator />
 						<ValidationSummary />
 						<div class="form-group">
@@ -64,23 +67,38 @@
 		gap: 10px;
 	}
 
-	.oi-star {
-		font-size: 34px;
-		color: #fbec5d;
-		cursor: pointer;
-	
-		transition: color 0.3s;
-
-	}
-
-		.oi-star:hover {
-			color: gold;
-		}
-
 	.modals {
 		display: flex;
 		margin: 20px;
 		justify-content: flex-start;
 		align-items: center;
+		border: 2px solid black;
+		border-radius: 10px;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	}
+
+	
+	.oi-star {
+		list-style-type: none;
+		border: 1px solid #fff;
+		cursor: pointer;
+		color: blue;
+		font-size: 60px; /* alterar o tamanho das estrelas */
+	}
+
+		.oi-star::before {
+			content: "\2605";
+		}
+
+		.oi-star.ativo ~ .oi-star::before {
+			content: "\2606";
+		}
+
+	.star-container:hover .oi-star::before {
+		content: "\2605";
+	}
+
+	.oi-star:hover ~ .oi-star::before {
+		content: "\2606";
 	}
 </style>
