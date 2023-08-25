@@ -10,13 +10,13 @@
 				</div>
 				<div class="modal-body">
 					<EditForm Model="@Feedback">
-						<div class="star-container">
-							<span class="oi oi-star ativo" data-avaliacao="1" @onclick="() => UpdateRating(1)" />
-							<span class="oi oi-star" data-avaliacao="2" @onclick="() => UpdateRating(2)" />
-							<span class="oi oi-star" data-avaliacao="3" @onclick="() => UpdateRating(3)" />
-							<span class="oi oi-star" data-avaliacao="4" @onclick="() => UpdateRating(4)" />
-							<span class="oi oi-star" data-avaliacao="5" @onclick="() => UpdateRating(5)" />
-						</div>
+					<div class="rating star-container">
+						<input type="radio" name="star" id="star5"><label for="star5" @onclick="() => UpdateRating(5)"></label>
+						<input type="radio" name="star" id="star4"><label for="star4" @onclick="() => UpdateRating(4)"></label>
+						<input type="radio" name="star" id="star3"><label for="star3" @onclick="() => UpdateRating(3)"></label>
+						<input type="radio" name="star" id="star2"><label for="star2" @onclick="() => UpdateRating(2)"></label>
+						<input type="radio" name="star" id="star1"><label for="star1" @onclick="() => UpdateRating(1)"></label>
+					</div>
 					</EditForm>
 				<br />
 					<EditForm Model="@User">
@@ -105,13 +105,7 @@
 
 
 <style>
-	.star-container {
-		display: flex;
-		align-items:center;
-		justify-content:center;
-		gap: 10px;
-	}
-
+	
 	.modals {
 		display: flex;
 		margin: 20px;
@@ -122,28 +116,52 @@
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 
-	
-	.oi-star {
-		list-style-type: none;
-		border: 1px solid #fff;
+	.rating {
+		gap:10px;
+		position:relative;
+		padding:0;
+		margin:0;
+		display: flex;
+		flex-direction:row-reverse;
+		justify-content:center;
+		align-items:center;
+	}
+
+	.rating input {
+		display: none;
+	}
+
+	.rating label {
+		display: block;
 		cursor: pointer;
-		color: blue;
-		font-size: 60px; /* alterar o tamanho das estrelas */
+		width: 30px;
 	}
 
-		.oi-star::before {
-			content: "\2605";
+		.rating label:before {
+			content: '\f005';
+			font-family: fontAwesome;
+			position: relative;
+			display: block;
+			font-size: 30px;
+			color: #0e1316;
 		}
 
-		.oi-star.ativo ~ .oi-star::before {
-			content: "\2606";
+		.rating label:after {
+			content: '\f005';
+			font-family: fontAwesome;
+			position: absolute;
+			display: block;
+			font-size: 30px;
+			color: #ffff00;
+			top: 0;
+			opacity: 0;
+			transition: .5;
+			text-shadow: 0 4px 5px rgba(0, 0, 0, .5);
 		}
 
-	.star-container:hover .oi-star::before {
-		content: "\2605";
-	}
-
-	.oi-star:hover ~ .oi-star::before {
-		content: "\2606";
-	}
+		.rating label:hover:after,
+		.rating label:hover ~ label:after,
+		.rating input:checked ~ label:after {
+			opacity: 1;
+		}
 </style>
