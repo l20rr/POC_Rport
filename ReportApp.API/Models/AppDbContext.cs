@@ -69,7 +69,7 @@ namespace ReportApp.API.Models
                 FeedbackId = 1,
                 UserId = 1,
                 Timestamp = new DateTime(2023, 07, 19),
-                Ranking = Ranking.Star3,
+                Ranking = 4,
                 Comments = "Great job!",
                 AttachmentId = 1,
                 Question1 = "Friend's recommendation",

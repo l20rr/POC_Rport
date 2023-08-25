@@ -11,8 +11,6 @@ namespace ReportApp.Components
 {
 	public partial class AddBugReport
 	{
-
-
 		private BugReport BugReport { get; set; } = new BugReport();
 		private User User { get; set; } = new User();
 
@@ -31,7 +29,7 @@ namespace ReportApp.Components
 
 		protected override async Task OnInitializedAsync()
 		{
-			await base.OnInitializedAsync(); // Chame a implementação base primeiro
+			await base.OnInitializedAsync(); 
 			isInitialized = true;
 		}
 
@@ -48,9 +46,9 @@ namespace ReportApp.Components
 			isShowing = true;
 			StateHasChanged();
 
-			await Task.Delay(10); // Pequeno atraso para permitir que a renderização seja atualizada
+			await Task.Delay(10); 
 
-			ShowReportForm = isShowing; // Atualize ShowReportForm após a renderização ser atualizada
+			ShowReportForm = isShowing; 
 			StateHasChanged();
 		}
 
@@ -82,15 +80,14 @@ namespace ReportApp.Components
 				}
 				else
 				{
-					Console.WriteLine("Erro: Ocorreu um problema ao criar a carteira.");
+					Console.WriteLine("Erro");
 				}
 			}
 			else
 			{
-				Console.WriteLine("Erro: O nome da carteira não pode ser vazio.");
+				Console.WriteLine("Erro.");
 			}
 		}
-
 
 		private async Task HandleValidSubmit()
 		{

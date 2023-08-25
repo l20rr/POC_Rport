@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Shared
 {
-	public enum Ranking
+	public class Ranking
 	{
-		Star1,
-		Star2,
-		Star3,
-		Star4,
-		Star5
+		public int Star1 { get; set; }
+		public int Star2 { get; set; }
+		public int Star3 { get; set; }
+		public int Star4 { get; set; }
+		public int Star5 { get; set; }
 	}
 }

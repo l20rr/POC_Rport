@@ -20,7 +20,7 @@ namespace ReportApp.Shared
 		public DateTime Timestamp { get; set; }
 
 
-		public Ranking Ranking { get; set; }
+		public int Ranking { get; set; }
 
 
 		[StringLength(1500, ErrorMessage = "The comments length can't exceed 1500 characters.")]

@@ -29,7 +29,10 @@ namespace ReportApp.API.Models
              UserId = f.UserId,
              Timestamp = f.Timestamp,
              Ranking = f.Ranking,
-             Comments = f.Comments,
+			 Question1=f.Question1,
+			 Question2 = (int)f.Question2,
+			 Question3 = (bool)f.Question3,
+			 Comments = f.Comments,
              UserName = f.User.UserName,
              UserEmail = f.User.Email
          })
@@ -49,7 +52,10 @@ namespace ReportApp.API.Models
            UserId = f.UserId,
            Timestamp = f.Timestamp,
            Ranking = f.Ranking,
-           Comments = f.Comments,
+		   Question1 = f.Question1,
+		   Question2 = (int)f.Question2,
+		   Question3 = (bool)f.Question3,
+		   Comments = f.Comments,
            UserName = f.User.UserName,
            UserEmail = f.User.Email
        })

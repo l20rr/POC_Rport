@@ -7,55 +7,100 @@
 					<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-			</div>
+				</div>
 				<div class="modal-body">
-				<EditForm Model="@Feedback">
-					<div class="star-container">
-						<span class="oi oi-star ativo" data-avaliacao="1" @onclick="() => UpdateRating(1)" />
-						<span class="oi oi-star" data-avaliacao="2" @onclick="() => UpdateRating(2)" />
-						<span class="oi oi-star" data-avaliacao="3" @onclick="() => UpdateRating(3)" />
-						<span class="oi oi-star" data-avaliacao="4" @onclick="() => UpdateRating(4)" />
-						<span class="oi oi-star" data-avaliacao="5" @onclick="() => UpdateRating(5)" />
-					</div>
-				</EditForm>
-
-				<EditForm Model="@User">
-						<DataAnnotationsValidator />
-						<ValidationSummary />
-						<div class="form-group">
-							<label for="UserName">Name: </label>
-							<InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
-							<ValidationMessage For="@(() => User.UserName)" />
-						</div>
-
-						<div class="form-group">
-							<label for="email">Email: </label>
-							<InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
-							<ValidationMessage For="@(() => User.Email)" />
+					<EditForm Model="@Feedback">
+						<div class="star-container">
+							<span class="oi oi-star ativo" data-avaliacao="1" @onclick="() => UpdateRating(1)" />
+							<span class="oi oi-star" data-avaliacao="2" @onclick="() => UpdateRating(2)" />
+							<span class="oi oi-star" data-avaliacao="3" @onclick="() => UpdateRating(3)" />
+							<span class="oi oi-star" data-avaliacao="4" @onclick="() => UpdateRating(4)" />
+							<span class="oi oi-star" data-avaliacao="5" @onclick="() => UpdateRating(5)" />
 						</div>
 					</EditForm>
-					<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">
+				<br />
+					<EditForm Model="@User">
+							<DataAnnotationsValidator />
+							<ValidationSummary />
+							<div class="form-group">
+								<label for="UserName">Name: </label>
+								<InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
+								<ValidationMessage For="@(() => User.UserName)" />
+							</div>
+							<br/>
+							<div class="form-group">
+								<label for="email">Email: </label>
+								<InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
+								<ValidationMessage For="@(() => User.Email)" />
+							</div>
+					</EditForm>
+					<EditForm Model="@Feedback">
 
-						<DataAnnotationsValidator />
-						<ValidationSummary />
+							<DataAnnotationsValidator />
+							<ValidationSummary />
 
-					
+					<br />
 						<div class="form-group">
 							<label for="Comments">Comments: </label>
-							<InputText id="Comments" class="form-control" @bind-Value="@Feedback.Comments" placeholder="Comments"></InputText>
+							<InputTextArea id="Comments" class="form-control" @bind-Value="@Feedback.Comments" placeholder="Comments"></InputTextArea>
 							<ValidationMessage For="@(() => Feedback.Comments)" />
 						</div>
 
-
-						<InputFile><p class="btn btn-warning">file</p></InputFile>
-						<button type="submit" class="btn btn-light">Send</button>
-						
+					<br />
+						<InputFile>file</InputFile>
+				
 					</EditForm>
+				<br />
 
+				<button @onclick="nextcomponent" class="btn btn-dark">Next</button>
 				</div>
+		</div>
+</div>
+	
+
+}
+
+@if(Questions == true)
+{
+	<div class="modals">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
+				<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">
+						<div class="form-group">
+				
+							<label>How did you first learn about our app? </label>
+							<InputText id="Question1" class="form-control" @bind-Value="@Feedback.Question1" placeholder="Question1"></InputText>
+							<ValidationMessage For="@(() => Feedback.Question1)" />
+
+						</div>
+						<br />
+						<div class="form-group">
+							<label>On a scale of 1 to 5, rate the interface of the mobile application. </label>
+							<InputNumber id="Question2" class="form-control" @bind-Value="@Feedback.Question2" min="1" max="5" placeholder="Question2"></InputNumber>
+							<ValidationMessage For="@(() => Feedback.Question2)" />
+						</div>
+						<br />
+						<div class="form-group">
+							<label>Would you recommend this app to your family and friends? </label>
+							<select class="form-control" @bind="Feedback.Question3">
+								<option value="true">Yes</option>
+								<option value="false">No</option>
+							</select>
+						</div>
+						<br/>
+					<br />
+					<button @onclick="PreviousComponent" class="btn btn-dark">back</button>
+					<button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
+				</EditForm>
 			</div>
 		</div>
-
+	</div>
 }
 
 

@@ -19,25 +19,26 @@
                             <InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
                             <ValidationMessage For="@(() => User.UserName)" />
                         </div>
-
+                    <br />
                         <div class="form-group">
                             <label for="email">Email: </label>
                             <InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
                             <ValidationMessage For="@(() => User.Email)" />
                         </div>
                     </EditForm>
-
+                <br />
                     <EditForm Model="@BugReport" OnValidSubmit="@HandleValidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
                         <div class="form-group">
                             <label for="Description">Description: </label>
-                            <InputText id="Description" class="form-control" @bind-Value="@BugReport.Description" placeholder="Description"></InputText>
+                            <InputTextArea id="Description" class="form-control" @bind-Value="@BugReport.Description" placeholder="Description"></InputTextArea>
                             <ValidationMessage For="@(() => BugReport.Description)" />
                         </div>
-
-                        <InputFile class="btn btn-warning">file</InputFile>
-                        <button type="submit" class="btn btn-light">Send</button>
+                    <br />
+                        <InputFile class="btn">file</InputFile>
+                    <br />
+                        <button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
                       
                     </EditForm>
 
