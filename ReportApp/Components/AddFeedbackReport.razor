@@ -4,9 +4,6 @@
 		<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
-					<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
 				</div>
 				<div class="modal-body">
 					<EditForm Model="@Feedback">
@@ -52,7 +49,8 @@
 					</EditForm>
 				<br />
 
-				<button @onclick="nextcomponent" class="btn btn-dark">Next</button>
+				<button @onclick="nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
+
 				</div>
 		</div>
 </div>
@@ -86,13 +84,11 @@
 							<ValidationMessage For="@(() => Feedback.Question2)" />
 						</div>
 						<br />
-						<div class="form-group">
-							<label>Would you recommend this app to your family and friends? </label>
-							<select class="form-control" @bind="Feedback.Question3">
-								<option value="true">Yes</option>
-								<option value="false">No</option>
-							</select>
-						</div>
+					<div class="form-group">
+						<label>Would you recommend this app to your family and friends? </label>
+						<InputText class="form-control" @bind-Value="@recommendationInput" />
+					</div>
+
 						<br/>
 					<br />
 					<button @onclick="PreviousComponent" class="btn btn-dark">back</button>

@@ -36,22 +36,22 @@ namespace ReportApp.Shared
 
         protected async override Task OnInitializedAsync()
         {
-            BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
-            Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
+           var BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
+			var Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
         }
 
 
         public async void AddBugReport_OnDialogClose()
         {
-            BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
-         
+			var BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
+    
             StateHasChanged();
         }
 
         public async void AddFeedReport_OnDialogClose()
         {
-            Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
-
+			var Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
+          
             StateHasChanged();
         }
 
@@ -68,9 +68,11 @@ namespace ReportApp.Shared
         {
           
             StateHasChanged();
-            await Task.Delay(5); 
+            await Task.Delay(5);
+            showmenu = false;
             showBugReportComponent = true;
             StateHasChanged();
+           
             while (AddBugReport == null)
             {
                 await Task.Delay(5);
@@ -84,11 +86,11 @@ namespace ReportApp.Shared
         {
           
             StateHasChanged(); 
-            await Task.Delay(5); 
-
+            await Task.Delay(5);
+            showmenu = false;
             showFeedReportComponent = true;
-            StateHasChanged(); 
-
+            StateHasChanged();
+            
             
             while (AddFeedbackReport == null)
             {

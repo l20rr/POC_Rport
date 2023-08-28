@@ -9,7 +9,7 @@
 
     @if (showmenu == true)
     {
-        <div class="menu @(showBugReportComponent || showFeedReportComponent ? "hide-menu" : "")">
+        <div class="menu">
             <div class="imenu" @onclick="QuickAddFeed">
                 <span class="oi oi-document" />
                     
@@ -38,23 +38,22 @@
             </div>
 
         </div>
-
-        @if (showBugReportComponent)
-        {
-            <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
-          
-        }
-
-
-        @if (showFeedReportComponent)
-        {
-            <AddFeedbackReport @ref="AddFeedbackReport" CloseEventCallback="@AddFeedReport_OnDialogClose" />
-          
-        }
    
 
     }
 
+    @if (showBugReportComponent)
+    {
+        <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
+
+    }
+
+
+    @if (showFeedReportComponent)
+    {
+        <AddFeedbackReport @ref="AddFeedbackReport" CloseEventCallback="@AddFeedReport_OnDialogClose" />
+
+    }
 
 
   
@@ -73,9 +72,7 @@
         margin-top: 20vw;
     }
 
-    .hide-menu {
-        display: none !important;
-    }
+   
     .btnfeed {
         transform: rotate(90deg);
         border: 2px solid black;

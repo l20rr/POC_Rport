@@ -14,8 +14,12 @@ namespace ReportApp.Components
 
 		public Feedback Feedback { get; set; } = new Feedback();
 		private User User { get; set; } = new User();
+		private bool AreFieldsFilled => !string.IsNullOrWhiteSpace(User.UserName) &&
+								!string.IsNullOrWhiteSpace(User.Email) &&
+								!string.IsNullOrWhiteSpace(Feedback.Comments)&&
+								  selectedRating > 0;
 
-	
+
 		[Inject]
 		public IFeedbackDataService FeedbackDataService { get; set; }
 		[Inject]
@@ -24,6 +28,7 @@ namespace ReportApp.Components
 		public bool ShowReportForm { get; set; }
 		public bool Questions { get; set; } = false;
 
+		private string recommendationInput = string.Empty;
 		[Parameter]
 		public EventCallback<bool> CloseEventCallback { get; set; }
 
@@ -53,11 +58,14 @@ namespace ReportApp.Components
 		{
 			Feedback = new Feedback();
 		}
-	
+
 		private void nextcomponent()
 		{
-			Questions = true;
-			ShowReportForm = false;
+			if (AreFieldsFilled)
+			{
+				Questions = true;
+				ShowReportForm = false;
+			}
 		}
 		private async Task Addfeed(int userId)
 		{
@@ -68,7 +76,9 @@ namespace ReportApp.Components
 				Feedback.UserId = userId;
 				Feedback.Ranking = selectedRating;
 
-				
+				bool.TryParse(recommendationInput.Trim().ToLower(), out bool recommendationValue);
+				Feedback.Question3 = recommendationValue;
+
 
 				var response = await FeedbackDataService.AddFeedback(Feedback);
 

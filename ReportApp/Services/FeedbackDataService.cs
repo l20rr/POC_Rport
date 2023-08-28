@@ -23,9 +23,9 @@ namespace ReportApp.Services
 		}
 
 
-		public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
+		public async Task<IEnumerable<FeedbackWithUserDetails>> GetAllFeedbacks()
 		{
-			return await JsonSerializer.DeserializeAsync<IEnumerable<Feedback>>
+			return await JsonSerializer.DeserializeAsync<IEnumerable<FeedbackWithUserDetails>>
 				(await _httpClient.GetStreamAsync($"api/feedback"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 		}
 
@@ -47,8 +47,11 @@ namespace ReportApp.Services
 			{
 				return await JsonSerializer.DeserializeAsync<Feedback>(await response.Content.ReadAsStreamAsync());
 			}
-
-			return null;
+			else
+			{
+				// Lida com a falha, se necessário
+				return null;
+			}
 		}
 	}
 }

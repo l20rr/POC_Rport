@@ -7,7 +7,7 @@ namespace ReportApp.Services
 {
 	public interface IBugReportDataService
 	{
-		Task<IEnumerable<BugReport>> GetAllBugReports();
+		Task<IEnumerable<BugWithUserDetails>> GetAllBugReports();
 		Task<BugReport> GetBugReportDetails(int bugReportId);
 		Task<BugReport> AddBugReport(BugReport bugReport);
 	}

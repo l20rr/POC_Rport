@@ -1,0 +1,73 @@
+﻿@page "/List"
+@using ReportApp.Services;
+@using ReportApp.Shared;
+
+<div class="container">
+    <h1>Bugs</h1>
+
+    <div class="grid">
+        @foreach (var reportbug in allreportbug)
+        {
+            <div class="itens">
+                <p> Name: @reportbug.UserName</p>
+                <p> Email: @reportbug.UserEmail</p>
+                <p>Time: @reportbug.Timestamp</p>
+                <p>Description: @reportbug.Description</p>
+            </div>
+        }
+    </div>
+
+    <h1>Feedbacks</h1>
+    <div class="grid">
+        @foreach (var reportfeed in allreportfeed)
+        {
+            <div class="itens">
+                <p>Name: @reportfeed.UserName</p>
+                <p>Email: @reportfeed.UserEmail</p>
+                <p>Time: @reportfeed.Timestamp</p>
+                <p>Evaluation: @reportfeed.Ranking</p>
+                <p>Comment: @reportfeed.Comments</p>
+                <p>Question1: @reportfeed.Question1</p>
+                <p>Question2: @reportfeed.Question2</p>
+                <p>Question3: @reportfeed.Question3</p>
+            </div>
+        }
+    </div>
+</div>
+@code {
+    [Inject]
+    public IBugReportDataService BugReportDataService { get; set; }
+
+    [Inject]
+    public IFeedbackDataService FeedbackDataService { get; set; }
+
+    private List<BugWithUserDetails> allreportbug = new List<BugWithUserDetails>();
+    private List<FeedbackWithUserDetails> allreportfeed = new List<FeedbackWithUserDetails>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        allreportbug = (await BugReportDataService.GetAllBugReports()).ToList();
+        allreportfeed = (await FeedbackDataService.GetAllFeedbacks()).ToList();
+    }
+}
+
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .itens {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+</style>

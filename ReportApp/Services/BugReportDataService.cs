@@ -24,9 +24,9 @@ namespace ReportApp.Services
 		}
 
 
-		public async Task<IEnumerable<BugReport>> GetAllBugReports()
+		public async Task<IEnumerable<BugWithUserDetails>> GetAllBugReports()
 		{
-			return await JsonSerializer.DeserializeAsync<IEnumerable<BugReport>>
+			return await JsonSerializer.DeserializeAsync<IEnumerable<BugWithUserDetails>>
 				(await _httpClient.GetStreamAsync($"api/bugReport"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 		}
 
