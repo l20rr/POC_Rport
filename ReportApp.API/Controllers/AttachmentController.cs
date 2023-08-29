@@ -1,64 +1,73 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReportApp.API.Models;
+using ReportApp.Services;
 using ReportApp.Shared;
 
 namespace ReportApp.API.Controllers
 {
-    [Route("api/atts")]
+    [Route("api/att")]
     [ApiController]
-    public class AttachmentController : Controller
+    public class AttachmentController : ControllerBase
     {
+        
+        private const string AttachmentsFolder = "Attachments";
         private readonly IAttachment _attachmentModel;
-
+   
         public AttachmentController(IAttachment attachmentModel)
         {
+
             _attachmentModel = attachmentModel;
         }
-
         [HttpGet]
-        public IActionResult GetAllAttachments()
+        public async Task<IActionResult> GetAllAttachments()
         {
             try
             {
+              
                 return Ok(_attachmentModel.GetAllAttachments());
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while fetching GetAllAttachments: {ex.Message}");
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
 
-        [HttpGet("{attachmentId}")]
-        public IActionResult GetUserById(int attachmentId)
-        {
-            try
-            {
-                return Ok(_attachmentModel.GetAttachmentById(attachmentId));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while fetching the GetAllAttachments: {ex.Message}");
-            }
-        }
-
+    
         [HttpPost]
-        public async Task<IActionResult> AddAttachments([FromBody] Attachments attachments)
+        public async Task<IActionResult> Post([FromBody] List<AttachmentDto> attachmentsDto)
         {
             try
             {
-                var newattAchments = await _attachmentModel.AddAttachments(attachments);
-                return CreatedAtAction(nameof(GetUserById), new { attachmentId = newattAchments.AttachmentId }, newattAchments);
+                var attachmentsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), AttachmentsFolder);
+                if (!Directory.Exists(attachmentsFolderPath))
+                {
+                    Directory.CreateDirectory(attachmentsFolderPath);
+                }
+
+                foreach (var attachmentDto in attachmentsDto)
+                {
+                    var buf = Convert.FromBase64String(attachmentDto.Base64data);
+                    var extension = Path.GetExtension(attachmentDto.FileName);
+                    var attachmentPath = Path.Combine(attachmentsFolderPath, Guid.NewGuid().ToString("N") + extension);
+                    await System.IO.File.WriteAllBytesAsync(attachmentPath, buf);
+
+                    var attachment = new Attachments
+                    {
+                        Base64data = attachmentDto.Base64data,
+                        ContentType = attachmentDto.ContentType,
+                        FileName = attachmentDto.FileName,
+                        FilePath = attachmentPath
+                    };
+
+                    await _attachmentModel.AddAttachments(attachment);
+                }
+
+                return Ok("Files uploaded successfully.");
             }
             catch (Exception ex)
             {
-                // Retornar uma resposta BadRequest com os detalhes do erro interno.
-                return BadRequest(new ProblemDetails
-                {
-                    Title = "Internal Server Error",
-                    Detail = $"An error occurred while adding the attachment: {ex.Message}",
-                    Status = 500
-
-                });
+                
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
     }
