@@ -24,33 +24,39 @@ namespace ReportApp.API.Migrations
 
             modelBuilder.Entity("ReportApp.Shared.Attachments", b =>
                 {
-                    b.Property<int>("AttachmentId")
+                    b.Property<int?>("AttachmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttachmentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("AttachmentId"));
 
-                    b.Property<int>("BugReportId")
+                    b.Property<string>("Base64data")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BugReportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FeedbackId")
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FeedbackId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AttachmentId");
 
                     b.HasIndex("BugReportId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[BugReportId] IS NOT NULL");
 
                     b.HasIndex("FeedbackId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[FeedbackId] IS NOT NULL");
 
                     b.ToTable("Attachment");
 
@@ -58,7 +64,9 @@ namespace ReportApp.API.Migrations
                         new
                         {
                             AttachmentId = 1,
+                            Base64data = "base64-encoded-data-goes-here",
                             BugReportId = 1,
+                            ContentType = "application/pdf",
                             FeedbackId = 1,
                             FileName = "File1",
                             FilePath = "http://api.com"
@@ -121,14 +129,13 @@ namespace ReportApp.API.Migrations
                         .HasColumnType("nvarchar(1500)");
 
                     b.Property<string>("Question1")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("Question2")
+                    b.Property<int?>("Question2")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Question3")
+                    b.Property<bool?>("Question3")
                         .HasColumnType("bit");
 
                     b.Property<int>("Ranking")
@@ -155,7 +162,7 @@ namespace ReportApp.API.Migrations
                             Question1 = "Friend's recommendation",
                             Question2 = 4,
                             Question3 = true,
-                            Ranking = 2,
+                            Ranking = 4,
                             Timestamp = new DateTime(2023, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
                         });
@@ -196,14 +203,12 @@ namespace ReportApp.API.Migrations
                     b.HasOne("ReportApp.Shared.BugReport", "BugReport")
                         .WithOne("Attachment")
                         .HasForeignKey("ReportApp.Shared.Attachments", "BugReportId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ReportApp.Shared.Feedback", "Feedback")
                         .WithOne("Attachment")
                         .HasForeignKey("ReportApp.Shared.Attachments", "FeedbackId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("BugReport");
 

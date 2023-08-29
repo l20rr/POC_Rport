@@ -14,14 +14,19 @@ namespace ReportApp.Components
 		private BugReport BugReport { get; set; } = new BugReport();
 		private User User { get; set; } = new User();
 
-		[Inject]
+      
+
+        
+
+        [Inject]
 		public IBugReportDataService BugReportDataService { get; set; }
 
 		[Inject]
 		public IUserDataService UserDataService { get; set; }
 		public bool ShowReportForm { get; set; } = false;
 
-		[Parameter]
+
+        [Parameter]
 		public EventCallback<bool> CloseEventCallback { get; set; }
 
 		private bool isInitialized = false;
@@ -55,10 +60,16 @@ namespace ReportApp.Components
 		public void Close()
 		{
 			ShowReportForm = false;
-			StateHasChanged();
-		}
+         
+            StateHasChanged();
+        }
 
-		private void ResetReportForm()
+
+
+
+
+
+        private void ResetReportForm()
 		{
 			BugReport = new BugReport { UserId = 1, Timestamp = DateTime.Now, Description = "", AttachmentId = 1 };
 		}

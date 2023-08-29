@@ -28,6 +28,8 @@ namespace ReportApp.Components
 		public bool ShowReportForm { get; set; }
 		public bool Questions { get; set; } = false;
 
+		public bool ShowformP { get; set; } = true;
+
 		private string recommendationInput = string.Empty;
 		[Parameter]
 		public EventCallback<bool> CloseEventCallback { get; set; }
@@ -36,7 +38,7 @@ namespace ReportApp.Components
 
 		private void UpdateRating(int rating)
 		{
-			selectedRating = rating; // Store the selected rating in the property
+			selectedRating = rating; 
 			Console.WriteLine($"Avaliação selecionada: {rating}");
 		}
 		public void Show()
@@ -64,7 +66,7 @@ namespace ReportApp.Components
 			if (AreFieldsFilled)
 			{
 				Questions = true;
-				ShowReportForm = false;
+				ShowformP = false;
 			}
 		}
 		private async Task Addfeed(int userId)
@@ -120,6 +122,7 @@ namespace ReportApp.Components
 		{
 			Questions = false;
 			ShowReportForm = true;
+			ShowformP = true;
 		}
 
 		private async Task HandleValidSubmit()

@@ -1,6 +1,9 @@
 ﻿using ReportApp.API.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
+using ReportApp.Services;
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ReportApp.API
 {
@@ -29,6 +32,11 @@ namespace ReportApp.API
 
             services.AddScoped<IFeedbackModel, FeedbackModel>();
             services.AddScoped<IAttachment, AttachmentModel>();
+           
+          
+
+
+
 
 
             //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

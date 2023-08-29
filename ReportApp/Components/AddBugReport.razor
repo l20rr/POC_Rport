@@ -32,11 +32,11 @@
                         <ValidationSummary />
                         <div class="form-group">
                             <label for="Description">Description: </label>
-                            <InputTextArea id="Description" class="form-control" @bind-Value="@BugReport.Description" placeholder="Description"></InputTextArea>
+                        <InputTextArea style="max-height:100px" id="Description" class="form-control" @bind-Value="@BugReport.Description" placeholder="Description" maxlength="200"></InputTextArea>
                             <ValidationMessage For="@(() => BugReport.Description)" />
                         </div>
                     <br />
-                        <InputFile class="btn">file</InputFile>
+                        <AddFile/>
                     <br />
                         <button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
                       

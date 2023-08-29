@@ -2,66 +2,6 @@
 {
 	<div class=" modals ">
 		<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
-				</div>
-				<div class="modal-body">
-					<EditForm Model="@Feedback">
-					<div class="rating star-container">
-						<input type="radio" name="star" id="star5"><label for="star5" @onclick="() => UpdateRating(5)"></label>
-						<input type="radio" name="star" id="star4"><label for="star4" @onclick="() => UpdateRating(4)"></label>
-						<input type="radio" name="star" id="star3"><label for="star3" @onclick="() => UpdateRating(3)"></label>
-						<input type="radio" name="star" id="star2"><label for="star2" @onclick="() => UpdateRating(2)"></label>
-						<input type="radio" name="star" id="star1"><label for="star1" @onclick="() => UpdateRating(1)"></label>
-					</div>
-					</EditForm>
-				<br />
-					<EditForm Model="@User">
-							<DataAnnotationsValidator />
-							<ValidationSummary />
-							<div class="form-group">
-								<label for="UserName">Name: </label>
-								<InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
-								<ValidationMessage For="@(() => User.UserName)" />
-							</div>
-							<br/>
-							<div class="form-group">
-								<label for="email">Email: </label>
-								<InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
-								<ValidationMessage For="@(() => User.Email)" />
-							</div>
-					</EditForm>
-					<EditForm Model="@Feedback">
-
-							<DataAnnotationsValidator />
-							<ValidationSummary />
-
-					<br />
-						<div class="form-group">
-							<label for="Comments">Comments: </label>
-							<InputTextArea id="Comments" class="form-control" @bind-Value="@Feedback.Comments" placeholder="Comments"></InputTextArea>
-							<ValidationMessage For="@(() => Feedback.Comments)" />
-						</div>
-
-					<br />
-						<InputFile>file</InputFile>
-				
-					</EditForm>
-				<br />
-
-				<button @onclick="nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
-
-				</div>
-		</div>
-</div>
-	
-
-}
-
-@if(Questions == true)
-{
-	<div class="modals">
-		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
 				<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
@@ -69,9 +9,64 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">
+				@if (ShowformP)
+				{
+					<EditForm Model="@Feedback">
+						<div class="rating star-container">
+							<input type="radio" name="star" id="star5"><label for="star5" @onclick="() => UpdateRating(5)"></label>
+							<input type="radio" name="star" id="star4"><label for="star4" @onclick="() => UpdateRating(4)"></label>
+							<input type="radio" name="star" id="star3"><label for="star3" @onclick="() => UpdateRating(3)"></label>
+							<input type="radio" name="star" id="star2"><label for="star2" @onclick="() => UpdateRating(2)"></label>
+							<input type="radio" name="star" id="star1"><label for="star1" @onclick="() => UpdateRating(1)"></label>
+						</div>
+					</EditForm>
+					<br />
+					<EditForm Model="@User">
+						<DataAnnotationsValidator />
+						<ValidationSummary />
 						<div class="form-group">
-				
+							<label for="UserName">Name: </label>
+							<InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
+							<ValidationMessage For="@(() => User.UserName)" />
+						</div>
+						<br />
+						<div class="form-group">
+							<label for="email">Email: </label>
+							<InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
+							<ValidationMessage For="@(() => User.Email)" />
+						</div>
+					</EditForm>
+					<EditForm Model="@Feedback">
+
+						<DataAnnotationsValidator />
+						<ValidationSummary />
+
+						<br />
+						<div class="form-group">
+							<label for="Comments">Comments: </label>
+							<InputTextArea id="Comments"
+							   class="form-control"
+							   @bind-Value="@Feedback.Comments"
+										   style="max-height:100px"
+							   placeholder="Comments"
+							   maxlength="200" />
+							 <ValidationMessage For="@(() => Feedback.Comments)" />
+						</div>
+
+						<br />
+						<AddFile />
+
+					</EditForm>
+					<br />
+
+					<button @onclick="nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
+
+				}
+				@if (Questions == true)
+				{
+					<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">
+						<div class="form-group">
+
 							<label>How did you first learn about our app? </label>
 							<InputText id="Question1" class="form-control" @bind-Value="@Feedback.Question1" placeholder="Question1"></InputText>
 							<ValidationMessage For="@(() => Feedback.Question1)" />
@@ -84,20 +79,25 @@
 							<ValidationMessage For="@(() => Feedback.Question2)" />
 						</div>
 						<br />
-					<div class="form-group">
-						<label>Would you recommend this app to your family and friends? </label>
-						<InputText class="form-control" @bind-Value="@recommendationInput" />
-					</div>
+						<div class="form-group">
+							<label>Would you recommend this app to your family and friends? </label>
+							<InputText class="form-control" @bind-Value="@recommendationInput" />
+						</div>
 
-						<br/>
-					<br />
-					<button @onclick="PreviousComponent" class="btn btn-dark">back</button>
-					<button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
-				</EditForm>
-			</div>
+						<br />
+						<br />
+						<button @onclick="PreviousComponent" class="btn btn-dark">back</button>
+						<button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
+					</EditForm>
+				}
+
+				</div>
 		</div>
-	</div>
+</div>
+	
+
 }
+
 
 
 <style>

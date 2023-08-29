@@ -94,6 +94,8 @@ namespace ReportApp.API.Models
                 FeedbackId = 1,
                 FileName = "File1",
                 FilePath = "http://api.com",
+                Base64data = "base64-encoded-data-goes-here",
+                ContentType = "application/pdf" // Altere para o tipo MIME correto
             });
         }
 

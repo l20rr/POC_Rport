@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ReportApp.API.Migrations
 {
     /// <inheritdoc />
-    public partial class report : Migration
+    public partial class reportfeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,9 +58,9 @@ namespace ReportApp.API.Migrations
                     Ranking = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
                     AttachmentId = table.Column<int>(type: "int", nullable: true),
-                    Question1 = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Question2 = table.Column<int>(type: "int", nullable: false),
-                    Question3 = table.Column<bool>(type: "bit", nullable: false)
+                    Question1 = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Question2 = table.Column<int>(type: "int", nullable: true),
+                    Question3 = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,10 +79,12 @@ namespace ReportApp.API.Migrations
                 {
                     AttachmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BugReportId = table.Column<int>(type: "int", nullable: false),
-                    FeedbackId = table.Column<int>(type: "int", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    BugReportId = table.Column<int>(type: "int", nullable: true),
+                    FeedbackId = table.Column<int>(type: "int", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Base64data = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,24 +116,26 @@ namespace ReportApp.API.Migrations
             migrationBuilder.InsertData(
                 table: "Feedbacks",
                 columns: new[] { "FeedbackId", "AttachmentId", "Comments", "Question1", "Question2", "Question3", "Ranking", "Timestamp", "UserId" },
-                values: new object[] { 1, 1, "Great job!", "Friend's recommendation", 4, true, 2, new DateTime(2023, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
+                values: new object[] { 1, 1, "Great job!", "Friend's recommendation", 4, true, 4, new DateTime(2023, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
 
             migrationBuilder.InsertData(
                 table: "Attachment",
-                columns: new[] { "AttachmentId", "BugReportId", "FeedbackId", "FileName", "FilePath" },
-                values: new object[] { 1, 1, 1, "File1", "http://api.com" });
+                columns: new[] { "AttachmentId", "Base64data", "BugReportId", "ContentType", "FeedbackId", "FileName", "FilePath" },
+                values: new object[] { 1, "base64-encoded-data-goes-here", 1, "application/pdf", 1, "File1", "http://api.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attachment_BugReportId",
                 table: "Attachment",
                 column: "BugReportId",
-                unique: true);
+                unique: true,
+                filter: "[BugReportId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attachment_FeedbackId",
                 table: "Attachment",
                 column: "FeedbackId",
-                unique: true);
+                unique: true,
+                filter: "[FeedbackId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bugs_UserId",

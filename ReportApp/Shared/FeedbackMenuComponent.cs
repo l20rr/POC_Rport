@@ -10,9 +10,12 @@ namespace ReportApp.Shared
     {
         public bool showmenu = false;
 
-        private bool showBugReportComponent = false;
+        public bool showBugReportComponent = false;
 
-        private bool showFeedReportComponent = false;
+        public bool showFeedReportComponent = false;
+
+        protected bool isAddBugReportInitialized = false;
+
 
         public IEnumerable<BugReport> BugReports { get; set; }
 
@@ -44,14 +47,14 @@ namespace ReportApp.Shared
         public async void AddBugReport_OnDialogClose()
         {
 			var BugReports = (await BugReportDataService.GetAllBugReports()).ToList();
-    
+         
             StateHasChanged();
         }
 
         public async void AddFeedReport_OnDialogClose()
         {
 			var Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
-          
+         
             StateHasChanged();
         }
 
@@ -59,9 +62,10 @@ namespace ReportApp.Shared
         private void ToggleMenu()
         {
             showmenu = !showmenu;
+            
         }
 
-        protected bool isAddBugReportInitialized = false;
+ 
 
 	
 	protected async Task QuickAddBug()
@@ -70,6 +74,7 @@ namespace ReportApp.Shared
             StateHasChanged();
             await Task.Delay(5);
             showmenu = false;
+          
             showBugReportComponent = true;
             StateHasChanged();
            
@@ -88,6 +93,7 @@ namespace ReportApp.Shared
             StateHasChanged(); 
             await Task.Delay(5);
             showmenu = false;
+         
             showFeedReportComponent = true;
             StateHasChanged();
             

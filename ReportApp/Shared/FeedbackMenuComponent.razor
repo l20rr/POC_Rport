@@ -1,7 +1,7 @@
 ﻿@using System.Net.Http
 
 <div class="sidebar">
-    <button class="btn btn-light btnfeed " @onclick="ToggleMenu">
+    <button class="btn btnfeed" @onclick="ToggleMenu">
         Feedback
     </button>
 
@@ -45,14 +45,11 @@
     @if (showBugReportComponent)
     {
         <AddBugReport @ref="AddBugReport" CloseEventCallback="@AddBugReport_OnDialogClose" />
-
     }
-
 
     @if (showFeedReportComponent)
     {
         <AddFeedbackReport @ref="AddFeedbackReport" CloseEventCallback="@AddFeedReport_OnDialogClose" />
-
     }
 
 
@@ -67,9 +64,11 @@
         position: fixed;
         width: 450px;
         background-color: transparent;
+  
         background-image: none;
-        height: 220px;
-        margin-top: 20vw;
+        height: 60vh;
+      
+       
     }
 
    
@@ -88,7 +87,7 @@
         justify-content: center;
         align-items: center;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-       
+        background-color: white;
     }
 
     .imenu {

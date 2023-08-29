@@ -29,3 +29,4 @@ namespace ReportApp.API.Models
         }
     }
 }
+
