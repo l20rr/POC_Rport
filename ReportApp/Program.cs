@@ -14,6 +14,9 @@ builder.Services.AddHttpClient<IBugReportDataService, BugReportDataService>(clie
 builder.Services.AddHttpClient<IFeedbackDataService, FeedbackDataService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
 builder.Services.AddHttpClient<IUserDataService, UserDataService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
 builder.Services.AddHttpClient<IAttachmentService, AttachmentService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5d4b8b691e2d8346d83c2d1ed18653e1319b2f4d
 
 await builder.Build().RunAsync();

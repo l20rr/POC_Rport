@@ -1,5 +1,10 @@
-﻿@if (ShowReportForm)
+﻿@using System.IO
+@inject HttpClient Http
+
+
+@if (ShowReportForm)
 {
+<<<<<<< HEAD
 
         <div class=" modals ">
 
@@ -45,11 +50,119 @@
 
 
                 </div>
+=======
+    <div class=" modals ">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleLabel">Bug Report</h5>
+                <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+>>>>>>> 5d4b8b691e2d8346d83c2d1ed18653e1319b2f4d
             </div>
+            <div class="modal-body">
+                <EditForm Model="@User">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="UserName">Name: </label>
+                        <InputText id="userName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter your name"></InputText>
+                        <ValidationMessage For="@(() => User.UserName)" />
+                    </div>
+                <br />
+                    <div class="form-group">
+                        <label for="email">Email: </label>
+                        <InputText id="email" class="form-control" @bind-Value="@User.Email" placeholder="Enter email"></InputText>
+                        <ValidationMessage For="@(() => User.Email)" />
+                    </div>
+                </EditForm>
+                <br />
+                <EditForm Model="@BugReport" OnValidSubmit="@HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="Description">Description: </label>
+                        <InputTextArea id="Description" class="form-control" @bind-Value="@BugReport.Description" placeholder="Description"></InputTextArea>
+                        <ValidationMessage For="@(() => BugReport.Description)" />
+                    </div>
+                <br />
 
+
+                <div class="input-group">
+                    <div class="custom-file">
+                        <InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/jpeg, image/png, image/gif, video/*" id="inputFile" />
+                        <label class="custom-file-label" for="inputFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-success" @onclick="Upload" disabled="@isDisable">Upload</button>
+                    </div>
+                </div>
+
+                @foreach (var item in filesBase64)
+                {
+                    @if (item.ContentType.StartsWith("image"))
+                    {
+                        <img src="data:@item.ContentType;base64,@item.Base64data" />
+                    }
+                    else if (item.ContentType.StartsWith("video"))
+                    {
+                        <video controls>
+                            <source src="data:@item.ContentType;base64,@item.Base64data" type="@item.ContentType" />
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                }
+
+                @code {
+                    List<Attachments> filesBase64 = new List<Attachments>();
+                    string message = "InputFile Example";
+                    bool isDisable = false;
+
+                    async Task OnChange(InputFileChangeEventArgs e)
+                    {
+                        var files = e.GetMultipleFiles();
+
+                        foreach (var file in files)
+                        {
+                            var buf = new byte[file.Size];
+
+                            using (var stream = file.OpenReadStream())
+                            {
+                                await stream.ReadAsync(buf);
+                            }
+
+                            filesBase64.Add(new Attachments { Base64data = Convert.ToBase64String(buf), ContentType = file.ContentType, FileName = file.Name });
+                        }
+
+                        message = "Click UPLOAD to continue";
+                    }
+
+                    async Task Upload()
+                    {
+                        isDisable = true;
+
+                        using (var msg = await Http.PostAsJsonAsync<List<Attachments>>("https://localhost:7046/api/att", filesBase64, System.Threading.CancellationToken.None))
+                        {
+                            isDisable = false;
+
+                            if (msg.IsSuccessStatusCode)
+                            {
+                                message = $"{filesBase64.Count} files uploaded";
+
+                                filesBase64.Clear();
+                            }
+                        }
+                    }
+                }
+
+
+                <br />
+                    <button type="submit" class="btn btn-light" style="border:2px solid black; border-radius:5px">Send</button>
+                      
+                </EditForm>
+            </div>
         </div>
-
-
+    </div>
 }
 
 <style>
