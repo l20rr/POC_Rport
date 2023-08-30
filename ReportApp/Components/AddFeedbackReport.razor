@@ -1,6 +1,6 @@
 ﻿@using System.IO
+@using ReportApp.Services;
 @inject HttpClient Http
-
 
 @if (ShowReportForm)
 {
@@ -59,9 +59,37 @@
 						</div>
 
 						<br />
-						<AddFile />
+					
 
 					</EditForm>
+					<div class="input-group">
+						<div class="custom-file">
+							<InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/jpeg, image/png, image/gif, video/*" id="inputFile" />
+							<label class="custom-file-label" for="inputFile">Choose file</label>
+						</div>
+					</div>
+
+					<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+						@foreach (var item in filesBase64)
+						{
+							<div style="width: 150px; height: 150px; overflow: hidden;">
+								@if (item.ContentType.StartsWith("image"))
+								{
+									<img src="data:@item.ContentType;base64,@item.Base64data" style="max-width: 100%; max-height: 100%;" />
+								}
+								else if (item.ContentType.StartsWith("video"))
+								{
+									<video controls style="max-width: 100%; max-height: 100%;">
+										<source src="data:@item.ContentType;base64,@item.Base64data" type="@item.ContentType" />
+										Your browser does not support the video tag.
+									</video>
+								}
+							</div>
+						}
+					</div>
+				
+
+
 					<br />
 
 					<button @onclick="nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>

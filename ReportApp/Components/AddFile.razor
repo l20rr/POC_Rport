@@ -1,8 +1,6 @@
 ﻿@using System.IO
+@using ReportApp.Services;
 @inject HttpClient Http
-
-
-
 
 
 <div class="input-group">
@@ -13,7 +11,7 @@
 </div>
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-    @foreach (var item in filesBase64)
+    @foreach (var item in AttachmentService.SelectedFiles)
     {
         <div style="width: 150px; height: 150px; overflow: hidden;">
             @if (item.ContentType.StartsWith("image"))
@@ -30,50 +28,30 @@
         </div>
     }
 </div>
-<h6>@message</h6>
 
-<div class="input-group-append">
-    <button class="btn btn-success" @onclick="Upload" disabled="@isDisable">Upload</button>
-</div>
 
-@code {
-    List<Attachments> filesBase64 = new List<Attachments>();
-    string message = "InputFile Example";
-    bool isDisable = false;
 
-    async Task OnChange(InputFileChangeEventArgs e)
-    {
-        var files = e.GetMultipleFiles();
 
-        foreach (var file in files)
+    @code {
+      
+    [Inject]
+    public IAttachmentService AttachmentService { get; set; }
+        async Task OnChange(InputFileChangeEventArgs e)
         {
-            var buf = new byte[file.Size];
+            var files = e.GetMultipleFiles();
 
-            using (var stream = file.OpenReadStream())
+            foreach (var file in files)
             {
-                await stream.ReadAsync(buf);
+                var buf = new byte[file.Size];
+
+                using (var stream = file.OpenReadStream())
+                {
+                    await stream.ReadAsync(buf);
+                }
+
+            AttachmentService.SelectedFiles.Add(new Attachments { Base64data = Convert.ToBase64String(buf), ContentType = file.ContentType, FileName = file.Name });
             }
 
-            filesBase64.Add(new Attachments { Base64data = Convert.ToBase64String(buf), ContentType = file.ContentType, FileName = file.Name });
-        }
-
-        message = "Click UPLOAD to continue";
-    }
-
-    async Task Upload()
-    {
-        isDisable = true;
-
-        using (var msg = await Http.PostAsJsonAsync<List<Attachments>>("https://localhost:7046/api/att", filesBase64, System.Threading.CancellationToken.None))
-        {
-            isDisable = false;
-
-            if (msg.IsSuccessStatusCode)
-            {
-                message = $"{filesBase64.Count} files uploaded";
-
-                filesBase64.Clear();
-            }
+       
         }
     }
-}

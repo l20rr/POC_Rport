@@ -1,17 +1,25 @@
 ﻿using ReportApp.Shared;
 using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
+
 namespace ReportApp.Services
 {
    
         public class AttachmentService : IAttachmentService
         {
-            private readonly HttpClient _httpClient;
+     
+        private readonly HttpClient _httpClient;
 
             public AttachmentService(HttpClient httpClient)
             {
                 _httpClient = httpClient;
             }
 
+        public List<Attachments> SelectedFiles { get; set; } = new List<Attachments>();
+
+        private int? _feedbackId = null;
+
+        private int? _bugReportId = null;
         public async Task<Attachments> AddAttachmentAsync(Attachments attachment)
         {
             var response = await _httpClient.PostAsJsonAsync("api/att", attachment);
@@ -35,7 +43,41 @@ namespace ReportApp.Services
             {
                 return await _httpClient.GetFromJsonAsync<Attachments>($"api/att/{attachmentId}");
             }
+
+        public void SetFeedbackId(int feedbackId)
+        {
+            _feedbackId = feedbackId;
         }
+        public async Task UploadFiles()
+        {
+            if (SelectedFiles.Count == 0)
+            {
+                return; // No files to upload
+            }
+
+            foreach (var file in SelectedFiles)
+            {
+                if (_feedbackId != null)
+                {
+                    file.FeedbackId = _feedbackId;
+                }
+                if (_bugReportId != null)
+                {
+                    file.BugReportId = _bugReportId;
+                }
+
+                await AddAttachmentAsync(file); // Save attachment in the database
+            }
+
+            SelectedFiles.Clear();
+        }
+
+
+        public void SetBugId(int bugReportId)
+        {
+            _bugReportId = bugReportId;
+        }
+    }
     }
 
 

@@ -8,6 +8,7 @@ namespace ReportApp.Shared
 {
     public class AttachmentDto
     {
+       
         public string FileName { get; set; }
         public string Base64data { get; set; }
         public string ContentType { get; set; }

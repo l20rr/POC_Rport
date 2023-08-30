@@ -5,7 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Components.Forms;
+using System.Net.Http.Json;
 
 namespace ReportApp.Components
 {
@@ -25,7 +26,9 @@ namespace ReportApp.Components
 		[Inject]
 		public IUserDataService UserDataService { get; set; }
 
-		public bool ShowReportForm { get; set; }
+        [Inject]
+        public IAttachmentService AttachmentService { get; set; }
+        public bool ShowReportForm { get; set; }
 		public bool Questions { get; set; } = false;
 
 		public bool ShowformP { get; set; } = true;
@@ -80,20 +83,8 @@ namespace ReportApp.Components
 
 				bool.TryParse(recommendationInput.Trim().ToLower(), out bool recommendationValue);
 				Feedback.Question3 = recommendationValue;
-
-
-				var response = await FeedbackDataService.AddFeedback(Feedback);
-
-				Console.WriteLine("Feedback Data:");
-					Console.WriteLine($"FeedbackId = {Feedback.FeedbackId},");
-					Console.WriteLine($"UserId = {Feedback.UserId},");
-					Console.WriteLine($"Timestamp = {Feedback.Timestamp},");
-					Console.WriteLine($"Ranking = {Feedback.Ranking},");
-					Console.WriteLine($"Comments = \"{Feedback.Comments}\",");
-					Console.WriteLine($"AttachmentId = {Feedback.AttachmentId},");
-					Console.WriteLine($"Question1 = \"{Feedback.Question1}\",");
-					Console.WriteLine($"Question2 = {Feedback.Question2},");
-					Console.WriteLine($"Question3 = {Feedback.Question3}");
+           
+                var response = await FeedbackDataService.AddFeedback(Feedback);
 
 				if (response != null)
 				{
@@ -124,11 +115,52 @@ namespace ReportApp.Components
 			ShowReportForm = true;
 			ShowformP = true;
 		}
+		List<Attachments> filesBase64 = new List<Attachments>();
+	
+		bool isDisable = false;
 
-		private async Task HandleValidSubmit()
+		async Task OnChange(InputFileChangeEventArgs e)
+		{
+			var files = e.GetMultipleFiles();
+
+			foreach (var file in files)
+			{
+				var buf = new byte[file.Size];
+
+				using (var stream = file.OpenReadStream())
+				{
+					await stream.ReadAsync(buf);
+				}
+
+				filesBase64.Add(new Attachments { Base64data = Convert.ToBase64String(buf), ContentType = file.ContentType, FileName = file.Name });
+			}
+
+			
+		}
+
+		async Task Upload()
+		{
+			isDisable = true;
+
+			using (var msg = await Http.PostAsJsonAsync<List<Attachments>>("https://localhost:7046/api/att", filesBase64, System.Threading.CancellationToken.None))
+			{
+				isDisable = false;
+
+				if (msg.IsSuccessStatusCode)
+				{
+					
+
+					filesBase64.Clear();
+				}
+			}
+		}
+
+
+        private async Task HandleValidSubmit()
 		{
 			var response = await UserDataService.AddUser(User);
-			await Addfeed(response.UserId);
+			 await Addfeed(response.UserId);
+			await Upload();
 			ShowReportForm = false;
 
 			await CloseEventCallback.InvokeAsync(true);
