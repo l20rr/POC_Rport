@@ -1,9 +1,14 @@
 ﻿@using System.Net.Http
 
+
 <div class="sidebar">
-    <button class="btn btnfeed" @onclick="ToggleMenu">
+
+    <button class="btn @(showmenu == false && (showBugReportComponent == false && showFeedReportComponent == false) ? "btnfeed" : "active")" @onclick="ToggleMenu">
         Feedback
     </button>
+
+    
+
 
 
 
@@ -77,6 +82,20 @@
         border: 2px solid black;
     }
 
+    .btnfeed:hover {
+            background-color: black;
+            color: white;
+    }
+    .active {
+        transform: rotate(90deg);
+            background-color:black;
+            color:white;
+     }
+
+        .active:hover{
+            background-color: black;
+            color: white;
+        }
     .menu {
         display: flex;
         flex-direction: column;

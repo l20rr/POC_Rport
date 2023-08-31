@@ -92,7 +92,7 @@
 
 					<br />
 
-					<button @onclick="nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
+					<button @onclick="Nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
 
 				}
 				@if (Questions == true)
@@ -108,7 +108,7 @@
 						<br />
 						<div class="form-group">
 							<label>On a scale of 1 to 5, rate the interface of the mobile application. </label>
-							<InputSelect id="Question2" class="form-control" @bind-Value="@Feedback.Question2" @onchange="HandleQuestion2Change">
+							<InputSelect id="Question2" class="form-control" @bind-Value="@Feedback.Question2" >
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>

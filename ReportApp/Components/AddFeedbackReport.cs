@@ -61,16 +61,23 @@ namespace ReportApp.Components
 
 		private void ResetReportForm()
 		{
-			Feedback = new Feedback();
+			Feedback = new Feedback { UserId = 1, Timestamp = DateTime.Now, Comments = "", AttachmentId = 1 };
 		}
 
-		private void nextcomponent()
+		private void Nextcomponent()
 		{
 			if (AreFieldsFilled)
 			{
 				Questions = true;
 				ShowformP = false;
 			}
+		}
+
+		private void PreviousComponent()
+		{
+			Questions = false;
+			ShowReportForm = true;
+			ShowformP = true;
 		}
 		private async Task Addfeed(int userId)
 		{
@@ -81,10 +88,6 @@ namespace ReportApp.Components
 				Feedback.UserId = userId;
 				Feedback.Ranking = selectedRating;
 
-				
-
-				
-           
                 var response = await FeedbackDataService.AddFeedback(Feedback);
 
 				if (response != null)
@@ -111,23 +114,8 @@ namespace ReportApp.Components
 			}
 		}
 
-		private void HandleQuestion2Change(ChangeEventArgs e)
-		{
-			if (int.TryParse(e.Value.ToString(), out int selectedValue))
-			{
-				Console.WriteLine("Selected Value for Question 2: " + selectedValue);
-			}
-			else
-			{
-				Console.WriteLine("Invalid value selected for Question 2");
-			}
-		}
-		private void PreviousComponent()
-		{
-			Questions = false;
-			ShowReportForm = true;
-			ShowformP = true;
-		}
+	
+	
 		List<Attachments> filesBase64 = new List<Attachments>();
 	
 		bool isDisable = false;

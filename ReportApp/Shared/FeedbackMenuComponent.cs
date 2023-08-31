@@ -34,8 +34,8 @@ namespace ReportApp.Shared
 
         [Parameter]
         public EventCallback<bool> OnClickEventCallback { get; set; }
-
       
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -62,7 +62,10 @@ namespace ReportApp.Shared
         private void ToggleMenu()
         {
             showmenu = !showmenu;
-            
+           
+            showBugReportComponent = false;
+
+         showFeedReportComponent = false;
         }
 
  
