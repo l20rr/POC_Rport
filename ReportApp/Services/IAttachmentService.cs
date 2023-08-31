@@ -9,8 +9,6 @@ namespace ReportApp.Services
         Task<Attachments> AddAttachmentAsync(Attachments attachment);
 
         List<Attachments> SelectedFiles { get; set; }
-        Task UploadFiles();
-        void SetFeedbackId(int feedbackId);
-        void SetBugId(int bugReportId);
+       
     }
 }

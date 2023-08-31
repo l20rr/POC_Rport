@@ -1,4 +1,4 @@
-﻿using ReportApp.Services;
+﻿﻿using ReportApp.Services;
 using Microsoft.AspNetCore.Components;
 using ReportApp.Shared;
 using System;
@@ -81,8 +81,9 @@ namespace ReportApp.Components
 				Feedback.UserId = userId;
 				Feedback.Ranking = selectedRating;
 
-				bool.TryParse(recommendationInput.Trim().ToLower(), out bool recommendationValue);
-				Feedback.Question3 = recommendationValue;
+				
+
+				
            
                 var response = await FeedbackDataService.AddFeedback(Feedback);
 
@@ -107,6 +108,18 @@ namespace ReportApp.Components
 			else
 			{
 				Console.WriteLine("Erro: O nome não pode ser vazio.");
+			}
+		}
+
+		private void HandleQuestion2Change(ChangeEventArgs e)
+		{
+			if (int.TryParse(e.Value.ToString(), out int selectedValue))
+			{
+				Console.WriteLine("Selected Value for Question 2: " + selectedValue);
+			}
+			else
+			{
+				Console.WriteLine("Invalid value selected for Question 2");
 			}
 		}
 		private void PreviousComponent()
@@ -168,4 +181,3 @@ namespace ReportApp.Components
 		}
 	}
 }
-

@@ -108,13 +108,22 @@
 						<br />
 						<div class="form-group">
 							<label>On a scale of 1 to 5, rate the interface of the mobile application. </label>
-							<InputNumber id="Question2" class="form-control" @bind-Value="@Feedback.Question2" min="1" max="5" placeholder="Question2"></InputNumber>
+							<InputSelect id="Question2" class="form-control" @bind-Value="@Feedback.Question2" @onchange="HandleQuestion2Change">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</InputSelect>
 							<ValidationMessage For="@(() => Feedback.Question2)" />
 						</div>
 						<br />
 						<div class="form-group">
 							<label>Would you recommend this app to your family and friends? </label>
-							<InputText class="form-control" @bind-Value="@recommendationInput" />
+							<InputSelect class="form-control" @bind-Value="@Feedback.Question3">
+								<option value="true">Yes</option>
+								<option value="false">No</option>
+							</InputSelect>
 						</div>
 
 						<br />

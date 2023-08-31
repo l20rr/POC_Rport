@@ -8,7 +8,10 @@ namespace ReportApp.Shared
 {
     public class AttachmentDto
     {
-       
+
+
+        public int? FeedbackId { get; set; }
+        public int? BugReportId { get; set; }
         public string FileName { get; set; }
         public string Base64data { get; set; }
         public string ContentType { get; set; }

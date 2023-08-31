@@ -53,8 +53,9 @@ namespace ReportApp.API.Controllers
 
                     var attachment = new Attachments
                     {
-                       
-                    Base64data = attachmentDto.Base64data,
+                       FeedbackId = attachmentDto.FeedbackId,
+                        BugReportId = attachmentDto.BugReportId,
+                        Base64data = attachmentDto.Base64data,
                         ContentType = attachmentDto.ContentType,
                         FileName = attachmentDto.FileName,
                         FilePath = attachmentPath

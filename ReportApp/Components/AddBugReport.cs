@@ -11,59 +11,59 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace ReportApp.Components
 {
     public partial class AddBugReport
-	{
-		private BugReport BugReport { get; set; } = new BugReport();
-		private User User { get; set; } = new User();
+    {
+        private BugReport BugReport { get; set; } = new BugReport();
+        private User User { get; set; } = new User();
 
-      
 
-        
+
+
 
         [Inject]
-		public IBugReportDataService BugReportDataService { get; set; }
+        public IBugReportDataService BugReportDataService { get; set; }
 
         [Inject]
         public IAttachmentService AttachmentService { get; set; }
         [Inject]
-		public IUserDataService UserDataService { get; set; }
-		public bool ShowReportForm { get; set; } = false;
+        public IUserDataService UserDataService { get; set; }
+        public bool ShowReportForm { get; set; } = false;
 
 
         [Parameter]
-		public EventCallback<bool> CloseEventCallback { get; set; }
+        public EventCallback<bool> CloseEventCallback { get; set; }
 
-		private bool isInitialized = false;
-		private bool isShowing = false;
+        private bool isInitialized = false;
+        private bool isShowing = false;
 
-		protected override async Task OnInitializedAsync()
-		{
-			await base.OnInitializedAsync(); 
-			isInitialized = true;
-		}
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+            isInitialized = true;
+        }
 
 
 
-		public async Task ShowAsync()
-		{
-			if (!isInitialized)
-			{
-				return;
-			}
+        public async Task ShowAsync()
+        {
+            if (!isInitialized)
+            {
+                return;
+            }
 
-			ResetReportForm();
-			isShowing = true;
-			StateHasChanged();
+            ResetReportForm();
+            isShowing = true;
+            StateHasChanged();
 
-			await Task.Delay(10); 
+            await Task.Delay(10);
 
-			ShowReportForm = isShowing; 
-			StateHasChanged();
-		}
+            ShowReportForm = isShowing;
+            StateHasChanged();
+        }
 
-		public void Close()
-		{
-			ShowReportForm = false;
-         
+        public void Close()
+        {
+            ShowReportForm = false;
+
             StateHasChanged();
         }
 
@@ -73,9 +73,9 @@ namespace ReportApp.Components
 
 
         private void ResetReportForm()
-		{
-			BugReport = new BugReport { UserId = 1, Timestamp = DateTime.Now, Description = "", AttachmentId = 1 };
-		}
+        {
+            BugReport = new BugReport { UserId = 1, Timestamp = DateTime.Now, Description = "", AttachmentId = 1 };
+        }
 
         private async Task AddBug(int userId)
         {
