@@ -60,7 +60,7 @@ namespace ReportApp.API.Controllers
             }
             catch (Exception ex)
             {
-                // Retornar uma resposta BadRequest com os detalhes do erro interno.
+                //  Return a BadRequest response with the details of the internal error.
                 return BadRequest(new ProblemDetails
                 {
                     Title = "Internal Server Error",

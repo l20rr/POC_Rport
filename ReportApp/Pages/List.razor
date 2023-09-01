@@ -2,6 +2,8 @@
 @using ReportApp.Services;
 @using ReportApp.Shared;
 
+
+<!--List of bug reports and feedback-->
 <div class="container">
     <h1>Bugs</h1>
 
@@ -34,6 +36,8 @@
         }
     </div>
 </div>
+
+
 @code {
     [Inject]
     public IBugReportDataService BugReportDataService { get; set; }

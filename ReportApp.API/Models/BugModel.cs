@@ -3,6 +3,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Models
 {
+      //BugModel and database connection
     public class BugModel : IBugModel
     {
         private readonly AppDbContext _appDbContext;
@@ -22,7 +23,7 @@ namespace ReportApp.API.Models
         public IEnumerable<BugWithUserDetails> GetAllBugs()
         {
             var BugWithUserDetails = _appDbContext.Bugs
-              .Include(f => f.User) // Certifique-se de incluir o usuário
+              .Include(f => f.User) 
               .Select(f => new BugWithUserDetails
               {
                   BugReportId = f.BugReportId,
@@ -42,7 +43,7 @@ namespace ReportApp.API.Models
         {
 
             var feedbackWithUser = _appDbContext.Bugs
-            .Include(f => f.User) // Certifique-se de incluir o usuário
+            .Include(f => f.User) 
             .Where(f => f.BugReportId == bugId)
             .Select(f => new BugWithUserDetails
             {

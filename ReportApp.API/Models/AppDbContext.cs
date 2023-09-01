@@ -48,7 +48,7 @@ namespace ReportApp.API.Models
                 .HasOne(b => b.Attachment)
                 .WithOne(a => a.BugReport)
                 .HasForeignKey<Attachments>(a => a.BugReportId)
-                .OnDelete(DeleteBehavior.Restrict); // Evita a exclusão em cascata
+                .OnDelete(DeleteBehavior.Restrict); // Prevents cascading deletion
             //Feedback with Attachment 1 - 1
             modelBuilder.Entity<Feedback>()
                 .HasOne(f => f.Attachment)
@@ -95,7 +95,7 @@ namespace ReportApp.API.Models
                 FileName = "File1",
                 FilePath = "http://api.com",
                 Base64data = "base64-encoded-data-goes-here",
-                ContentType = "application/pdf" // Altere para o tipo MIME correto
+                ContentType = "application/pdf" 
             });
         }
 

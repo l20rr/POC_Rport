@@ -1,12 +1,11 @@
 ﻿@using System.IO
 @using ReportApp.Services;
 @inject HttpClient Http
-
+<!--We split it into two "pages"-->
 @if (ShowReportForm)
 {
 	<div class="modals">
 		<div class="modal-content">
-
 			<div class="modal-header">
 				<h5 class="modal-title" id="titleLabel">Feedback Report</h5>
 				<button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
@@ -14,6 +13,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
+				<!--Page 1 user and attachment-->
 				@if (ShowformP)
 				{
 					<EditForm Model="@Feedback">
@@ -59,9 +59,8 @@
 						</div>
 
 						<br />
-					
-
 					</EditForm>
+					<!--File upload-->
 					<div class="input-group">
 						<div class="custom-file">
 							<InputFile class="custom-file-input" multiple OnChange="OnChange" accept="image/jpeg, image/png, image/gif, video/*" id="inputFile" />
@@ -87,14 +86,12 @@
 							</div>
 						}
 					</div>
-				
-
-
 					<br />
 
 					<button @onclick="Nextcomponent" class="btn btn-dark" disabled="@(!AreFieldsFilled)">Next</button>
 
 				}
+				<!--Page 2 general Questions -->
 				@if (Questions == true)
 				{
 					<EditForm Model="@Feedback" OnValidSubmit="@HandleValidSubmit">

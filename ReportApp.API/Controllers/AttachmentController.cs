@@ -32,7 +32,8 @@ namespace ReportApp.API.Controllers
             }
         }
 
-    
+
+        //Focused controller for the files we will upload
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] List<AttachmentDto> attachmentsDto)
         {
@@ -48,13 +49,15 @@ namespace ReportApp.API.Controllers
                 {
                     var buf = Convert.FromBase64String(attachmentDto.Base64data);
                     var extension = Path.GetExtension(attachmentDto.FileName);
-                    var attachmentPath = Path.Combine(attachmentsFolderPath, Guid.NewGuid().ToString("N") + extension);
+                    var fileName = Path.GetFileNameWithoutExtension(attachmentDto.FileName);
+                    var attachmentPath = Path.Combine(attachmentsFolderPath, fileName + extension);
+
                     await System.IO.File.WriteAllBytesAsync(attachmentPath, buf);
 
                     var attachment = new Attachments
                     {
-                       FeedbackId = attachmentDto.FeedbackId,
-                        BugReportId = attachmentDto.BugReportId,
+                        FeedbackId = attachmentDto.FeedbackId,
+                        BugReportId = attachmentDto.BugReportId, 
                         Base64data = attachmentDto.Base64data,
                         ContentType = attachmentDto.ContentType,
                         FileName = attachmentDto.FileName,
@@ -68,7 +71,6 @@ namespace ReportApp.API.Controllers
             }
             catch (Exception ex)
             {
-                
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }

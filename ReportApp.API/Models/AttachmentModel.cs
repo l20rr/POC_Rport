@@ -2,6 +2,7 @@
 
 namespace ReportApp.API.Models
 {
+    //AttachmentModel and database connection
     public class AttachmentModel : IAttachment
     {
         private readonly AppDbContext _appDbContext;

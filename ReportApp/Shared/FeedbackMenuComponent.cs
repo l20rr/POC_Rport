@@ -8,6 +8,7 @@ namespace ReportApp.Shared
 {
     public partial class FeedbackMenuComponent
     {
+        //Dependencies
         public bool showmenu = false;
 
         public bool showBugReportComponent = false;
@@ -15,8 +16,6 @@ namespace ReportApp.Shared
         public bool showFeedReportComponent = false;
 
         protected bool isAddBugReportInitialized = false;
-
-
         public IEnumerable<BugReport> BugReports { get; set; }
 
         public IEnumerable<Feedback> Feedbacks { get; set; }    
@@ -50,7 +49,6 @@ namespace ReportApp.Shared
          
             StateHasChanged();
         }
-
         public async void AddFeedReport_OnDialogClose()
         {
 			var Feedbacks = (await FeedbackDataService.GetAllFeedbacks()).ToList();
@@ -58,7 +56,7 @@ namespace ReportApp.Shared
             StateHasChanged();
         }
 
-
+        //Method for ShowMenu Feedback Button
         private void ToggleMenu()
         {
             showmenu = !showmenu;
@@ -68,12 +66,9 @@ namespace ReportApp.Shared
          showFeedReportComponent = false;
         }
 
- 
-
-	
-	protected async Task QuickAddBug()
+        //show component bug
+        protected async Task QuickAddBug()
         {
-          
             StateHasChanged();
             await Task.Delay(5);
             showmenu = false;
@@ -89,7 +84,7 @@ namespace ReportApp.Shared
             AddBugReport.ShowAsync();
        
         }
-
+        //show component feedback
         protected async Task QuickAddFeed()
         {
           
@@ -99,7 +94,6 @@ namespace ReportApp.Shared
          
             showFeedReportComponent = true;
             StateHasChanged();
-            
             
             while (AddFeedbackReport == null)
             {

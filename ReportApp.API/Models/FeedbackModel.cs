@@ -3,6 +3,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Models
 {
+    //FeedbackModel and database connection
     public class FeedbackModel:IFeedbackModel
     {
         private readonly AppDbContext _appDbContext;
@@ -22,7 +23,7 @@ namespace ReportApp.API.Models
         public IEnumerable<FeedbackWithUserDetails> GetAllFeedbacks()
         {
             var feedbacksWithUsers = _appDbContext.Feedbacks
-         .Include(f => f.User) // Certifique-se de incluir o usuário
+         .Include(f => f.User) 
          .Select(f => new FeedbackWithUserDetails
          {
              FeedbackId = f.FeedbackId,
@@ -44,7 +45,7 @@ namespace ReportApp.API.Models
         public FeedbackWithUserDetails GetFeedbackById(int feedbackId)
         {
             var feedbackWithUser = _appDbContext.Feedbacks
-       .Include(f => f.User) // Certifique-se de incluir o usuário
+       .Include(f => f.User) 
        .Where(f => f.FeedbackId == feedbackId)
        .Select(f => new FeedbackWithUserDetails
        {

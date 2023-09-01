@@ -49,7 +49,6 @@ namespace ReportApp.Services
 			}
 			else
 			{
-				// Lida com a falha, se necessário
 				return null;
 			}
 		}

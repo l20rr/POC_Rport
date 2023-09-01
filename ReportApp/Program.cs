@@ -14,6 +14,6 @@ builder.Services.AddHttpClient<IBugReportDataService, BugReportDataService>(clie
 builder.Services.AddHttpClient<IFeedbackDataService, FeedbackDataService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
 builder.Services.AddHttpClient<IUserDataService, UserDataService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
 builder.Services.AddHttpClient<IAttachmentService, AttachmentService>(client => client.BaseAddress = new Uri("https://localhost:7046/"));
-builder.Services.AddScoped<SharedStateService>();
+
 
 await builder.Build().RunAsync();

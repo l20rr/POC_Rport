@@ -3,6 +3,7 @@ using ReportApp.Shared;
 
 namespace ReportApp.API.Models
 {
+    //user Model and database connection
     public class UserModel : IUserModel
     {
         private readonly AppDbContext _appDbContext;

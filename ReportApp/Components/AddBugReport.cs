@@ -12,12 +12,9 @@ namespace ReportApp.Components
 {
     public partial class AddBugReport
     {
+        //Dependencies
         private BugReport BugReport { get; set; } = new BugReport();
         private User User { get; set; } = new User();
-
-
-
-
 
         [Inject]
         public IBugReportDataService BugReportDataService { get; set; }
@@ -26,14 +23,17 @@ namespace ReportApp.Components
         public IAttachmentService AttachmentService { get; set; }
         [Inject]
         public IUserDataService UserDataService { get; set; }
-        public bool ShowReportForm { get; set; } = false;
-
-
         [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 
         private bool isInitialized = false;
         private bool isShowing = false;
+        public bool ShowReportForm { get; set; } = false;
+
+        private bool AreFieldsFilled => !string.IsNullOrWhiteSpace(User.UserName) &&
+                        !string.IsNullOrWhiteSpace(User.Email) &&
+                        !string.IsNullOrWhiteSpace(BugReport.Description);
+                        
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,7 +42,7 @@ namespace ReportApp.Components
         }
 
 
-
+        //Methods for seeing close and return the component 
         public async Task ShowAsync()
         {
             if (!isInitialized)
@@ -55,7 +55,6 @@ namespace ReportApp.Components
             StateHasChanged();
 
             await Task.Delay(10);
-
             ShowReportForm = isShowing;
             StateHasChanged();
         }
@@ -67,16 +66,12 @@ namespace ReportApp.Components
             StateHasChanged();
         }
 
-
-
-
-
-
         private void ResetReportForm()
         {
             BugReport = new BugReport { UserId = 1, Timestamp = DateTime.Now, Description = "", AttachmentId = 1 };
         }
 
+        //Add bug feedback
         private async Task AddBug(int userId)
         {
 
@@ -105,7 +100,7 @@ namespace ReportApp.Components
         }
 
 
-
+        //part for uploading files
         List<Attachments> filesBase64 = new List<Attachments>();
 
         bool isDisable = false;
@@ -125,8 +120,6 @@ namespace ReportApp.Components
 
                 filesBase64.Add(new Attachments { Base64data = Convert.ToBase64String(buf), ContentType = file.ContentType, FileName = file.Name });
             }
-
-
         }
 
         async Task Upload()
@@ -139,14 +132,12 @@ namespace ReportApp.Components
 
                 if (msg.IsSuccessStatusCode)
                 {
-
-
                     filesBase64.Clear();
                 }
             }
         }
 
-
+        //Submit
         private async Task HandleValidSubmit()
         {
             var response = await UserDataService.AddUser(User);
