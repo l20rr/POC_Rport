@@ -20,6 +20,18 @@ namespace ReportApp.API.Models
             return result.Entity;
         }
 
+        public async Task DeleteAll()
+        {
+            var foundDos = _appDbContext.Users.OrderByDescending(d => d.UserId).ToList();
+
+            foreach (var Users in foundDos)
+            {
+                _appDbContext.Users.Remove(Users);
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public IEnumerable<User> GetAllUsers()
         {
             return _appDbContext.Users;

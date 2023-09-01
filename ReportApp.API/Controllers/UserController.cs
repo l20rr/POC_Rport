@@ -63,5 +63,12 @@ namespace ReportApp.API.Controllers
                 });
             }
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAll()
+        {
+            await _userModel.DeleteAll();
+            return Ok(); 
+        }
     }
 }

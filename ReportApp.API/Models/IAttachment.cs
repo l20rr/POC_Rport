@@ -8,5 +8,7 @@ namespace ReportApp.API.Models
         IEnumerable<Attachments> GetAllAttachments();
         Attachments GetAttachmentById(int attachmentId);
         Task<Attachments> AddAttachments(Attachments attachments);
+
+        Task DeleteAll();
     }
 }

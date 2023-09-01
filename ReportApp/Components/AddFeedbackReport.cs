@@ -86,7 +86,7 @@ namespace ReportApp.Components
         }
 
         //Add general feedback
-        private async Task Addfeed(int userId)
+        private async Task Addfeed(int userId, int lastAttachmentId )
         {
 
             if (!string.IsNullOrWhiteSpace(Feedback.Comments))
@@ -94,12 +94,15 @@ namespace ReportApp.Components
 
                 Feedback.UserId = userId;
                 Feedback.Ranking = selectedRating;
+                Feedback.AttachmentId = lastAttachmentId;   
+               
 
                 var response = await FeedbackDataService.AddFeedback(Feedback);
 
                 if (response != null)
                 {
                     Console.WriteLine("Sucesso: ");
+                    Console.WriteLine($"AttachmentId = {Feedback.AttachmentId},");
                 }
                 else
                 {
@@ -162,14 +165,33 @@ namespace ReportApp.Components
             }
         }
 
+        public async Task<int> GetLastAttachmentIdAsync()
+        {
+            var attachments = await AttachmentService.GetAllAttachmentsAsync();
+
+            if (attachments.Any())
+            {
+                //LINQ for last AttachmentId
+                int lastAttachmentId = (int)attachments.Max(a => a.AttachmentId);
+                return lastAttachmentId;
+            }
+
+            return -1; 
+        }
+
+
         //Submit
         private async Task HandleValidSubmit()
         {
             var response = await UserDataService.AddUser(User);
-            await Addfeed(response.UserId);
+           
             await Upload();
             ShowReportForm = false;
 
+            int lastAttachmentId = await GetLastAttachmentIdAsync();
+
+            Console.WriteLine($"Último AttachmentId inserido: {lastAttachmentId}");
+            await Addfeed(response.UserId, lastAttachmentId);
             await CloseEventCallback.InvokeAsync(true);
             StateHasChanged();
         }

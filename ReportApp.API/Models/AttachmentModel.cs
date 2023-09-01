@@ -19,6 +19,18 @@ namespace ReportApp.API.Models
             return result.Entity;
         }
 
+        public async Task DeleteAll()
+        {
+            var foundDos = _appDbContext.Attachment.OrderByDescending(d => d.AttachmentId).ToList();
+
+            foreach (var Attachment in foundDos)
+            {
+                _appDbContext.Attachment.Remove(Attachment);
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public IEnumerable<Attachments> GetAllAttachments()
         {
             return _appDbContext.Attachment;

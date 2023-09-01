@@ -25,7 +25,7 @@ namespace ReportApp.Shared
         public string Comments { get; set; }
 
 
-        public int AttachmentId { get; set; }
+        public int? AttachmentId { get; set; }
 
 
         /* How did you first learn about our app? */

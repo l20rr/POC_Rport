@@ -8,5 +8,7 @@ namespace ReportApp.API.Models
         IEnumerable<BugWithUserDetails> GetAllBugs();
         BugWithUserDetails GetBugById(int bugId);
         Task<BugReport> Addbug(BugReport bug);
+
+        Task DeleteAll();
     }
 }

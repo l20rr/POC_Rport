@@ -4,7 +4,7 @@ using ReportApp.Shared;
 namespace ReportApp.API.Models
 {
     //FeedbackModel and database connection
-    public class FeedbackModel:IFeedbackModel
+    public class FeedbackModel: IFeedbackModel
     {
         private readonly AppDbContext _appDbContext;
 
@@ -20,6 +20,19 @@ namespace ReportApp.API.Models
             return result.Entity;
         }
 
+        public async Task DeleteAll()
+        {
+            var foundDos = _appDbContext.Feedbacks.OrderByDescending(d => d.FeedbackId).ToList();
+
+            foreach (var Feedbacks in foundDos)
+            {
+                _appDbContext.Feedbacks.Remove(Feedbacks);
+            }
+
+            await _appDbContext.SaveChangesAsync();
+
+        }
+
         public IEnumerable<FeedbackWithUserDetails> GetAllFeedbacks()
         {
             var feedbacksWithUsers = _appDbContext.Feedbacks
@@ -30,7 +43,8 @@ namespace ReportApp.API.Models
              UserId = f.UserId,
              Timestamp = f.Timestamp,
              Ranking = f.Ranking,
-			 Question1=f.Question1,
+             AttachmentId = f.AttachmentId,
+             Question1 =f.Question1,
 			 Question2 = (int)f.Question2,
 			 Question3 = (bool)f.Question3,
 			 Comments = f.Comments,
@@ -53,7 +67,8 @@ namespace ReportApp.API.Models
            UserId = f.UserId,
            Timestamp = f.Timestamp,
            Ranking = f.Ranking,
-		   Question1 = f.Question1,
+           AttachmentId = f.AttachmentId,
+           Question1 = f.Question1,
 		   Question2 = (int)f.Question2,
 		   Question3 = (bool)f.Question3,
 		   Comments = f.Comments,

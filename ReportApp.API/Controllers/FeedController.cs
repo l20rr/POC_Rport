@@ -70,5 +70,11 @@ namespace ReportApp.API.Controllers
             }
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAll()
+        {
+            await _feedModel.DeleteAll();
+            return Ok();
+        }
     }
 }

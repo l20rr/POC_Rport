@@ -20,6 +20,18 @@ namespace ReportApp.API.Models
             return result.Entity;
         }
 
+        public async Task DeleteAll()
+        {
+            var foundDos = _appDbContext.Bugs.OrderByDescending(d => d.BugReportId).ToList();
+
+            foreach (var bugs in foundDos)
+            {
+                _appDbContext.Bugs.Remove(bugs);
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public IEnumerable<BugWithUserDetails> GetAllBugs()
         {
             var BugWithUserDetails = _appDbContext.Bugs

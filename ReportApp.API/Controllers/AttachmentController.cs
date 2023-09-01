@@ -33,6 +33,22 @@ namespace ReportApp.API.Controllers
         }
 
 
+        [HttpGet("{FileName}")]
+        public IActionResult GetAttachment(string fileName)
+        {
+            // Construa o caminho completo para o arquivo com base no nome do arquivo fornecido.
+            string filePath = Path.Combine("CaminhoDaSuaPastaAttachments", fileName);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                // Lê o arquivo e retorna como uma resposta HTTP.
+                var fileStream = System.IO.File.OpenRead(filePath);
+                return File(fileStream, "image/jpeg"); // Altere o tipo MIME conforme necessário.
+            }
+
+            return NotFound();
+        }
+
         //Focused controller for the files we will upload
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] List<AttachmentDto> attachmentsDto)
@@ -73,6 +89,12 @@ namespace ReportApp.API.Controllers
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAll()
+        {
+            await _attachmentModel.DeleteAll();
+            return Ok();
         }
     }
 }

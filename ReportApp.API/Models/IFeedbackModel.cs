@@ -8,5 +8,7 @@ namespace ReportApp.API.Models
         IEnumerable<FeedbackWithUserDetails> GetAllFeedbacks();
         FeedbackWithUserDetails GetFeedbackById(int feedbackId);
         Task<Feedback> AddFeedback(Feedback feedback);
+
+        Task DeleteAll();
     }
 }

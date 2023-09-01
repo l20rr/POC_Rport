@@ -7,5 +7,7 @@ namespace ReportApp.API.Models
         IEnumerable<User> GetAllUsers();
         User GetUserById(int userId);
         Task<User> AddUser(User user);
+
+        Task DeleteAll();
     }
 }

@@ -33,7 +33,7 @@ namespace ReportApp.Components
         private bool AreFieldsFilled => !string.IsNullOrWhiteSpace(User.UserName) &&
                         !string.IsNullOrWhiteSpace(User.Email) &&
                         !string.IsNullOrWhiteSpace(BugReport.Description);
-                        
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -72,33 +72,35 @@ namespace ReportApp.Components
         }
 
         //Add bug feedback
-        private async Task AddBug(int userId)
+        private async Task AddBug(int userId, int lastAttachmentId)
         {
-
             if (!string.IsNullOrWhiteSpace(BugReport.Description))
             {
-
                 BugReport.UserId = userId;
-
+                BugReport.AttachmentId = lastAttachmentId; 
 
                 var response = await BugReportDataService.AddBugReport(BugReport);
 
                 if (response != null)
                 {
                     Console.WriteLine("Sucesso: ");
-
                 }
                 else
                 {
                     Console.WriteLine("Erro");
+                    Console.WriteLine("Feedback Data:");
+                    Console.WriteLine($"BugReportId = {BugReport.BugReportId},");
+                    Console.WriteLine($"UserId = {BugReport.UserId},");
+                    Console.WriteLine($"AttachmentId = {BugReport.AttachmentId},");
+                    Console.WriteLine($"Description = {BugReport.Description},");
+             
                 }
             }
             else
             {
-                Console.WriteLine("Erro.");
+                Console.WriteLine("Erro2.");
             }
         }
-
 
         //part for uploading files
         List<Attachments> filesBase64 = new List<Attachments>();
@@ -137,14 +139,35 @@ namespace ReportApp.Components
             }
         }
 
-        //Submit
+        public async Task<int> GetLastAttachmentIdAsync()
+        {
+            var attachments = await AttachmentService.GetAllAttachmentsAsync();
+
+            if (attachments.Any())
+            {
+                //LINQ for last AttachmentId
+                int lastAttachmentId = (int)attachments.Max(a => a.AttachmentId);
+                return lastAttachmentId;
+            }
+
+            return -1; 
+        }
+
+
         private async Task HandleValidSubmit()
         {
             var response = await UserDataService.AddUser(User);
-            await AddBug(response.UserId);
+
             await Upload();
             ShowReportForm = false;
 
+            // Obtenha o último AttachmentId após a conclusão do upload
+            int lastAttachmentId = await GetLastAttachmentIdAsync();
+
+            // Exiba o último AttachmentId no console
+            Console.WriteLine($"Último AttachmentId inserido: {lastAttachmentId}");
+
+            await AddBug(response.UserId, lastAttachmentId); // Passando lastAttachmentId como argumento
             await CloseEventCallback.InvokeAsync(true);
             StateHasChanged();
         }
