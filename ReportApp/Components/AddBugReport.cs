@@ -161,13 +161,13 @@ namespace ReportApp.Components
             await Upload();
             ShowReportForm = false;
 
-            // Obtenha o último AttachmentId após a conclusão do upload
+           
             int lastAttachmentId = await GetLastAttachmentIdAsync();
 
-            // Exiba o último AttachmentId no console
+          
             Console.WriteLine($"Último AttachmentId inserido: {lastAttachmentId}");
 
-            await AddBug(response.UserId, lastAttachmentId); // Passando lastAttachmentId como argumento
+            await AddBug(response.UserId, lastAttachmentId); 
             await CloseEventCallback.InvokeAsync(true);
             StateHasChanged();
         }
