@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ReportApp.API.Models;
 using ReportApp.Services;
 using ReportApp.Shared;
@@ -38,21 +38,13 @@ namespace ReportApp.API.Controllers
         [HttpGet("{fileName}")]
         public IActionResult GetAttachment(string fileName)
         {
-<<<<<<< HEAD
+
             try
             {
                 string filePath = Path.Combine(_attachmentsFolderPath, fileName);
-=======
-          
-            string filePath = Path.Combine("CaminhoDaSuaPastaAttachments", fileName);
 
-            if (System.IO.File.Exists(filePath))
-            {
+          
        
-                var fileStream = System.IO.File.OpenRead(filePath);
-                return File(fileStream, "image/jpeg"); // Altere o tipo MIME conforme necessário.
-            }
->>>>>>> 7713c9860e4e8ca5b8829a6d55993f5a0608cf0b
 
                 if (System.IO.File.Exists(filePath))
                 {
@@ -120,3 +112,4 @@ namespace ReportApp.API.Controllers
         }
     }
 }
+
