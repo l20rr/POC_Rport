@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ReportApp.Services;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.JSInterop;
 
 namespace ReportApp.API
 {
@@ -32,8 +33,8 @@ namespace ReportApp.API
 
             services.AddScoped<IFeedbackModel, FeedbackModel>();
             services.AddScoped<IAttachment, AttachmentModel>();
-           
-          
+
+            
 
 
 

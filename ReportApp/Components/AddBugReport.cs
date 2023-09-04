@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace ReportApp.Components
 {
@@ -15,7 +16,8 @@ namespace ReportApp.Components
         //Dependencies
         private BugReport BugReport { get; set; } = new BugReport();
         private User User { get; set; } = new User();
-
+        [Inject]
+        private HttpClient HttpClient { get; set; }
         [Inject]
         public IBugReportDataService BugReportDataService { get; set; }
 
@@ -26,15 +28,26 @@ namespace ReportApp.Components
         [Parameter]
         public EventCallback<bool> CloseEventCallback { get; set; }
 
+        [Parameter]
+        public EventCallback<bool> OnRecordingCompleted { get; set; }
+
         private bool isInitialized = false;
         private bool isShowing = false;
         public bool ShowReportForm { get; set; } = false;
-
+        public bool showbugr { get; set; } = true;
+        public bool recording { get; set; } = false;
         private bool AreFieldsFilled => !string.IsNullOrWhiteSpace(User.UserName) &&
                         !string.IsNullOrWhiteSpace(User.Email) &&
                         !string.IsNullOrWhiteSpace(BugReport.Description);
 
+        private string videoData = null;
 
+        [JSInvokable("ReceberVideoData")]
+        public void ReceberVideoData(string data)
+        {
+            videoData = data;
+            StateHasChanged();
+        }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -58,7 +71,18 @@ namespace ReportApp.Components
             ShowReportForm = isShowing;
             StateHasChanged();
         }
+        public void ShowR()
+        {
+            recording = true;
+            showbugr = false;
+        }
 
+        public void Back()
+        {
+            recording = false;
+            showbugr = true;
+
+        }
         public void Close()
         {
             ShowReportForm = false;
@@ -152,13 +176,17 @@ namespace ReportApp.Components
 
             return -1; 
         }
+      
 
 
-        private async Task HandleValidSubmit()
-        {
+
+
+            private async Task HandleValidSubmit()
+             {
             var response = await UserDataService.AddUser(User);
-
+          
             await Upload();
+            
             ShowReportForm = false;
 
            

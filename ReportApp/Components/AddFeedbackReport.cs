@@ -31,8 +31,8 @@ namespace ReportApp.Components
                                 selectedRating > 0;
         public bool ShowReportForm { get; set; }
         public bool Questions { get; set; } = false;
-
-        public bool ShowformP { get; set; } = true;
+		public bool recording { get; set; } = false;
+		public bool ShowformP { get; set; } = true;
 
         private string recommendationInput = string.Empty;
         [Parameter]
@@ -55,7 +55,18 @@ namespace ReportApp.Components
             ShowReportForm = true;
             StateHasChanged();
         }
+        public void ShowR()
+        {
+			recording = true;
+            ShowformP = false;
+		}
 
+		public void Back()
+        {
+            recording = false;
+			ShowformP = true;
+
+		}
 
         public void Close()
         {
