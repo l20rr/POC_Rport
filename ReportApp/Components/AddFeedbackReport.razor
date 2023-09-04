@@ -67,7 +67,7 @@
 							<label class="custom-file-label" for="inputFile">Choose file</label>
 						</div>
 					</div>
-					<button @onclick="ShowR">Screen recording</button>
+					<button @onclick="ShowR" class="btn btn-warning">Screen recording</button>
 					<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
 						@foreach (var item in filesBase64)
 						{
@@ -95,7 +95,7 @@
 				{
 					<RecordComponent />
 					<button @onclick="Back">Voltar</button>
-					<button>Salvar</button>
+					
 				}
 				<!--Page 2 general Questions -->
 				@if (Questions == true)

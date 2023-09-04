@@ -1,7 +1,7 @@
 ﻿let preview = null;
 let mediaRecorder = null;
 let isRecording = false;
-
+let fileNumber = 1; 
 function startRecording() {
     preview = document.getElementById("preview");
 
@@ -48,17 +48,45 @@ function startRecording() {
             setTimeout(() => {
                 if (isRecording) {
                     stopRecording();
+                    downloadRecording(new Blob(recordedChunks, { type: "video/webm" }));
                 }
-            }, 10000); 
+            }, 10000);
         })
         .catch((error) => {
             console.log("Error: " + error.message);
         });
 }
 
+function downloadRecording(blob) {
+    
+    const fileName = `arquivo${fileNumber}.webm`;
+    fileNumber++; 
+
+    
+    const downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = fileName;
+
+
+    document.body.appendChild(downloadLink);
+
+   
+    downloadLink.click();
+
+   
+    setTimeout(() => {
+        document.body.removeChild(downloadLink);
+    }, 100);
+}
 function stopRecording() {
     if (isRecording) {
         mediaRecorder.stop();
         isRecording = false;
     }
 }
+
+
+
+
+
+

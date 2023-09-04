@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using Microsoft.EntityFrameworkCore;
 
 namespace ReportApp.Components
 {
@@ -176,12 +177,11 @@ namespace ReportApp.Components
 
             return -1; 
         }
-      
+
+     
 
 
-
-
-            private async Task HandleValidSubmit()
+        private async Task HandleValidSubmit()
              {
             var response = await UserDataService.AddUser(User);
           
